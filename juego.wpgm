@@ -1,11 +1,14 @@
 import wollok.game.*
+import escenarios.*
 import example.*
 
-program NombreDeJuego {
-	// TODO: Cambiar esto por lo que necesiten
-	game.title("Grupo: ... | Nombre de jueguito")
-	game.height(10)
-	game.width(10)
+program EscapeDelMuseo {
+	game.title("Grupo: Wollok Larpers | Una tarde en el museo")
+	game.height(8)
+	game.width(14)
+	game.cellSize(32)
+
+	administradorDeSalas.iniciar()
 
 	game.addVisual(player)
 

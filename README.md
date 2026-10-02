@@ -1,13 +1,13 @@
-# Wollok Game: Título de juego
+# Wollok Game: Una tarde en el museo
 
-**Grupo:** Nombre de Grupo
+**Grupo:** Wollok Larpers
 
 **Integrantes:**
-- Nombre y Apellido
-- Nombre y Apellido
-- Nombre y Apellido
-- Nombre y Apellido
-- Nombre y Apellido
+- Costanza Pérez Alsina
+- Lucas Nicolas Koziupa
+- Antonella Giovanna Mazza Campero
+- Julieta Viera
+- Thiago Nicolas Márquez
 
 ## Consignas
 
