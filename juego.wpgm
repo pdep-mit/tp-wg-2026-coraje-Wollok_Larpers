@@ -4,9 +4,9 @@ import example.*
 
 program EscapeDelMuseo {
 	game.title("Grupo: Wollok Larpers | Una tarde en el museo")
-	game.height(8)
-	game.width(14)
-	game.cellSize(32)
+	game.height(10)
+	game.width(10)
+	game.cellSize(50)
 
 	administradorDeSalas.iniciar()
 
