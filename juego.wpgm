@@ -3,26 +3,30 @@ import escenarios.*
 import player.*
 import movimientos.*
 import disfraces.*
+import llave.*
 
 program EscapeDelMuseo {
 	game.title("Grupo: Wollok Larpers | Una tarde en el museo")
 	game.height(10)
 	game.width(25)
 	game.cellSize(50)
-
+	
 	administradorDeSalas.iniciar()
-
+	
+	game.addVisual(activadorArtista)
+	game.addVisual(llave)
 	game.addVisual(player)
-
+	
 	keyboard.up().onPressDo({ movimiento.mover(player, haciaArriba) })
-    keyboard.down().onPressDo({ movimiento.mover(player, haciaAbajo) })
-    keyboard.left().onPressDo({ movimiento.mover(player, haciaLaIzquierda) })
-    keyboard.right().onPressDo({ movimiento.mover(player, haciaLaDerecha) })
-
+	keyboard.down().onPressDo({ movimiento.mover(player, haciaAbajo) })
+	keyboard.left().onPressDo({ movimiento.mover(player, haciaLaIzquierda) })
+	keyboard.right().onPressDo({ movimiento.mover(player, haciaLaDerecha) })
+	
 	keyboard.num1().onPressDo({ player.ponerseDisfraz(sinDisfraz) })
-    keyboard.num2().onPressDo({ player.ponerseDisfraz(disfrazArtista) })
-    keyboard.num3().onPressDo({ player.ponerseDisfraz(disfrazPolicia) })
-    keyboard.num4().onPressDo({ player.ponerseDisfraz(disfrazAnubis) })
-
+	keyboard.num2().onPressDo(
+		{ if (player.tiene(disfrazArtista)) player.ponerseDisfraz(disfrazArtista) }
+	)
+	llave.activar()
+	activadorArtista.activar()
 	game.start()
 }
