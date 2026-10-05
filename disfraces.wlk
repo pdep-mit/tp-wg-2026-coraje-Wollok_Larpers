@@ -7,7 +7,6 @@ object sinDisfraz {
 object disfrazArtista {
   method image() = "jugador/jugador_artista.png"
 }
-
 object disfrazPolicia {
   method image() = "jugador/jugador_policia.png"
 }

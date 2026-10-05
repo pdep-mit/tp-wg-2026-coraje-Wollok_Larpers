@@ -4,7 +4,7 @@ import wollok.game.*
 Le pregunta a la direccion cual seria la posicion siguiente a partir de donde esta el personaje
 y la guarda en nuevaPosicion. Si esa nuevaPosicion esta dentro de la sala, el personaje
 pasa a ocupar esa posicion. Si no, se queda donde estaba. */
-object movimiento {
+object movimientos {
   method mover(personaje, direccion) {
     const nuevaPosicion = direccion.posicionSiguiente(personaje.position())
     if (self.estaDentroDeLaSala(nuevaPosicion)) {
@@ -16,7 +16,6 @@ object movimiento {
     pos.x().between(1, game.width() - 2) && pos.y().between(1, game.height() - 2)
 }
 
-//polimorfismo, los 4 obj entienden el mismo mensaje
 object haciaArriba {
   method posicionSiguiente(posicion) = posicion.up(1)
 }

@@ -1,4 +1,3 @@
-import juego.*
 import player.*
 
 object llave {
