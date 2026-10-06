@@ -59,8 +59,10 @@ object salaPrincipal {
             posicionJugador = game.at(2, 5) 
         )
         game.addVisual(puertaA1)
-        
-        game.addVisual(llave)
+        // lo hice antes con un flag, pero me di cuenta que era mejor consultar si ya la tenia el jugador, creo que es mejor jaja
+        if(!player.tiene(llave)){
+            game.addVisual(llave)
+        }
     }
 }
 
@@ -74,7 +76,8 @@ object habitacionUno {
             posicionJugador = game.at(4, 6) 
         )
         game.addVisual(puertaVolver)
-        
-        game.addVisual(activadorArtista)
+        if(!player.tiene(activadorArtista)){
+            game.addVisual(activadorArtista)
+        }
     }
 }

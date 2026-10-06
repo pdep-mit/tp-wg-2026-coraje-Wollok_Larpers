@@ -3,7 +3,6 @@ import player.*
 
 object llave {
   var property position = game.at(5, 2)
-    
   method image() = "llave.png"
     
   method chocarConJugador() {
