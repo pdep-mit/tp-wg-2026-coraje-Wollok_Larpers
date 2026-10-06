@@ -7,10 +7,11 @@ import disfraces.*
 class Fondo {
     var property position = game.at(0, 0)
     var property image
+    method chocarConJugador() {}
 }
 class Puerta {
     var property position
-    var property image = "puerta2_50.png"
+    var property image = "puerta_1celda.png"
     var property proximaSala
     var property posicionJugador
 
