@@ -1,11 +1,14 @@
+import wollok.game.*
 import player.*
 
 object llave {
-  var property position = game.at(15, 5)
-  
+  var property position = game.at(5, 2)
+    
   method image() = "llave.png"
-  
-  method activar() {
-    game.onCollideDo(self, {personaje => personaje.agarrarLlave(self)})
+    
+  method chocarConJugador() {
+    player.agregarAlInventario(self)
+    game.say(player, "¡Conseguiste la llave!") 
+    game.schedule(100, { game.removeVisual(self) })
   }
 }

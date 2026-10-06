@@ -32,12 +32,13 @@ object disfrazAnubis {
 }
 
 object activadorArtista {
-  var property position = game.at(5, 5)
-  
+  var property position = game.at(6, 2)
+
   method image() = "activadorArtista.png"
-  
-  method activar() {
-    //le mando el mensaje al personaje que colisiono y le paso el activador con self
-    game.onCollideDo(self, {personaje => personaje.agarrarDisfrazArtista(self)})
+    
+  method chocarConJugador() {
+    player.agregarAlInventario(disfrazArtista)
+    game.say(player, "¡Conseguiste el disfraz de artista! Podes cambiar de disfraz con las teclas 1-4.")
+    game.schedule(100, { game.removeVisual(self) })
   }
 }
