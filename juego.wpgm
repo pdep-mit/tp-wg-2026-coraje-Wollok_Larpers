@@ -8,7 +8,7 @@ import llave.*
 program EscapeDelMuseo {
 	game.title("Grupo: Wollok Larpers | Una tarde en el museo")
 	game.height(10)
-	game.width(25)
+	game.width(10)
 	game.cellSize(50)
 	
 	administradorDeSalas.iniciar()
