@@ -26,7 +26,6 @@ program EscapeDelMuseo {
 	keyboard.num2().onPressDo(
 		{ if (player.tiene(disfrazArtista)) player.ponerseDisfraz(disfrazArtista) }
 	)
-	llave.activar()
-	activadorArtista.activar()
+	game.onCollideDo(player, { elemento => elemento.colisionoCon(player) })
 	game.start()
 }
