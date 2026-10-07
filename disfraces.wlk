@@ -8,13 +8,14 @@ object sinDisfraz {
   method abrePuertaModerna() = true
 }
 
-object disfrazArtista {
+/*object disfrazArtista {
   method image() = "jugador/jugador_artista.png"
   method teAtacaGuardia() = true
-  method teAtacaCuadroVivo() = true
-  method teAtacaEstatua() = true
-  method abrePuertaModerna() = true
+  method teAtacaCuadroVivo() = false
+  method teAtacaEstatua() = false
+  method abrePuertaModerna() = false
 }
+*/
 object disfrazPolicia {
   method image() = "jugador/jugador_policia.png"
   method teAtacaGuardia() = false
@@ -26,19 +27,19 @@ object disfrazPolicia {
 object disfrazAnubis {
   method image() = "jugador/jugador_anubis.png"
   method teAtacaGuardia() = true
-  method teAtacaCuadroVivo() = false
-  method teAtacaEstatua() = false
-  method abrePuertaModerna() = false
+  method teAtacaCuadroVivo() = true
+  method teAtacaEstatua() = true
+  method abrePuertaModerna() = true
 }
 
-object activadorArtista {
+object activadorAnubis {
   var property position = game.at(6, 2)
 
-  method image() = "activadorArtista.png"
+  method image() = "activadorAnubis.png"
     
   method chocarConJugador() {
-    player.agregarAlInventario(disfrazArtista)
-    game.say(player, "¡Conseguiste el disfraz de artista! Podes cambiar de disfraz con las teclas 1-4.")
+    player.agregarAlInventario(disfrazAnubis)
+    game.say(player, "¡Conseguiste el disfraz de Anubis! Podes cambiar de disfraz con las teclas 1-4.")
     game.schedule(100, { game.removeVisual(self) })
   }
 }

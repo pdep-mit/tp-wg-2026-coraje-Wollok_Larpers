@@ -42,7 +42,7 @@ object administradorDeSalas {
         
         keyboard.num1().onPressDo({ player.ponerseDisfraz(sinDisfraz) })
         keyboard.num2().onPressDo({ 
-            if (player.tiene(disfrazArtista)) player.ponerseDisfraz(disfrazArtista) 
+            if (player.tiene(disfrazAnubis)) player.ponerseDisfraz(disfrazAnubis) 
         })
 
         game.onCollideDo(player, { elemento => elemento.chocarConJugador() })
@@ -59,7 +59,6 @@ object salaPrincipal {
             posicionJugador = game.at(2, 5) 
         )
         game.addVisual(puertaA1)
-        // lo hice antes con un flag, pero me di cuenta que era mejor consultar si ya la tenia el jugador, creo que es mejor jaja
         if(!player.tiene(llave)){
             game.addVisual(llave)
         }
@@ -76,8 +75,8 @@ object habitacionUno {
             posicionJugador = game.at(4, 6) 
         )
         game.addVisual(puertaVolver)
-        if(!player.tiene(activadorArtista)){
-            game.addVisual(activadorArtista)
+        if(!player.tiene(activadorAnubis)){
+            game.addVisual(activadorAnubis)
         }
     }
 }
