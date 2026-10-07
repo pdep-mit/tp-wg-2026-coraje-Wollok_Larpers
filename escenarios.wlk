@@ -20,6 +20,21 @@ class Puerta {
     }
 }
 
+object puertaFinal {
+    var property position = game.at(7,7)
+    var property image = "puerta_1celda.png"
+    var property gano = false
+
+    method chocarConJugador(){
+        if(player.tiene(llave)) {
+            gano = true
+            game.say(player, "Ganaste!!!")
+        } else{
+            game.say(player, "Te falta la llave maestro")
+        }
+    }
+}
+
 object administradorDeSalas {
     method iniciar() {
         self.cambiarA(salaPrincipal, game.at(2, 2))
@@ -75,7 +90,8 @@ object habitacionUno {
             posicionJugador = game.at(4, 6) 
         )
         game.addVisual(puertaVolver)
-        if(!player.tiene(activadorAnubis)){
+        game.addVisual(puertaFinal)
+        if(!player.tiene(disfrazAnubis)){
             game.addVisual(activadorAnubis)
         }
     }
