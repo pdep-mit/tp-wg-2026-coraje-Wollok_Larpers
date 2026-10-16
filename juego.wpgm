@@ -7,7 +7,6 @@ program EscapeDelMuseo {
     game.width(10)
     game.cellSize(50)
     
-    //El administrador se encarga de todo el setup inicial
     administradorDeSalas.iniciar()
     
     game.start()
