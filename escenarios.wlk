@@ -3,6 +3,7 @@ import player.*
 import movimientos.*
 import llave.*
 import disfraces.*
+import reloj.*
 
 class Fondo {
     var property position = game.at(0, 0)
@@ -44,6 +45,7 @@ object administradorDeSalas {
         game.clear()
         nuevaSala.dibujar()
         self.configurarJugador(posicionJugador)
+        reloj.ponerEnPantalla()
     }
 
     method configurarJugador(posicionJugador) {
