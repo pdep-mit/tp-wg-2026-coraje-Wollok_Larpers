@@ -3,7 +3,8 @@ import player.*
 import escenarios.* 
 object menuFlotante {
     var property position = game.at(4, 8)
-    method image() = "menu_opciones.png" 
+    method text() = " [V] Verdad   |   [F] Falso "
+    method textColor() = "FFFFFFFF"
     
     method chocarConJugador() {} 
     method abrirMenu() {}
@@ -17,14 +18,47 @@ class IndicadorEstado {
 
     method image() {
         if (estado == "verdad") return "marca_v.png"
-        if (estado == "falso") return "marca_f.png"
-        return "vacio.png"
+        return "marca_f.png"
     }
     
     method chocarConJugador() {}
     method abrirMenu() {}
     method marcarVerdad() {}
     method marcarFalso() {}
+}
+object administradorEstatuas{
+    const estatua1 = new EstatuaRomana(
+        position = game.at(3, 4), 
+        dialogo = "La mayoría de nosotras decimos la verdad     "
+    )
+    const estatua2 = new EstatuaVerdadera(
+        position = game.at(4, 5), 
+        dialogo = "La mayoría de nosotras somos mentirosas     "
+    )
+    const estatua3 = new EstatuaRomana(
+        position = game.at(5, 6), 
+        dialogo = "Todas excepto yo mienten     "
+    )
+    
+    const estatua4 = new EstatuaVerdadera(
+        position = game.at(6, 5), 
+        dialogo = "Solo hay una mentirosa entre nsotras     "
+    )
+    
+    const estatua5 = new EstatuaVerdadera(
+        position = game.at(7, 4), 
+        dialogo = "Al menos dos de nosotras somos mentirosas    "
+    )
+
+    const property estatuas = [estatua1, estatua2, estatua3, estatua4, estatua5]
+
+    method dibujarEstatuas() {
+        estatuas.forEach({ estatua => estatua.dibujarEnJuego() })
+    }
+
+    method estanTodasResueltas() {
+        return estatuas.all({ estatua => estatua.estaCorrecta() })
+    }
 }
 
 class EstatuaRomana {
@@ -40,7 +74,6 @@ class EstatuaRomana {
 
     method dibujarEnJuego() {
         game.addVisual(self)
-        game.addVisual(indicador)
     }
     method image() = "estatua.png"
 
@@ -56,12 +89,18 @@ class EstatuaRomana {
     method marcarVerdad() {
         estado = "verdad"
         indicador.estado("verdad")
-        if (game.hasVisual(menuFlotante)) { game.removeVisual(menuFlotante) }
+        if (!game.hasVisual(indicador)) {
+            game.addVisual(indicador)
+        }
+        if (!game.hasVisual(menuFlotante)) { game.removeVisual(menuFlotante) }
     }
 
     method marcarFalso() {
         estado = "falso"
         indicador.estado("falso")
+        if (!game.hasVisual(indicador)) {
+            game.addVisual(indicador)
+        }
         if (game.hasVisual(menuFlotante)) { game.removeVisual(menuFlotante) }
     }
 
@@ -71,4 +110,4 @@ class EstatuaRomana {
 
 class EstatuaVerdadera inherits EstatuaRomana {
     override method diceLaVerdad() = true
-}
+}    

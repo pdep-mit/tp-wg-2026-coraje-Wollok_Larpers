@@ -7,7 +7,7 @@ object llave {
     
   method chocarConJugador() {
     player.agregarAlInventario(self)
-    game.say(player, "¡Conseguiste la llave!") 
+    game.say(player, "¡Agarre una llave muy extraña!") 
     game.schedule(100, { game.removeVisual(self) })
   }
 }

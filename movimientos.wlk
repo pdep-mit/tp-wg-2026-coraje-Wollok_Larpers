@@ -1,9 +1,5 @@
 import wollok.game.*
 
-/* El metodo mover recibe el personaje y una direccion (arriba, abajo, derecha o izquierda).
-Le pregunta a la direccion cual seria la posicion siguiente a partir de donde esta el personaje
-y la guarda en nuevaPosicion. Si esa nuevaPosicion esta dentro de la sala, el personaje
-pasa a ocupar esa posicion. Si no, se queda donde estaba. */
 object movimientos {
   method mover(personaje, direccion) {
     const nuevaPosicion = direccion.posicionSiguiente(personaje.position())
