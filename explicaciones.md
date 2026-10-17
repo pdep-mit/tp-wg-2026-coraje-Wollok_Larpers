@@ -54,6 +54,6 @@ classDiagram
   }
   PantallaFinal <|-- pantallaVictoria
   PantallaFinal <|-- pantallaDerrota
-  reloj --> pantallaDerrota : mostrar() a las 18:00
-  administradorDeSalas --> reloj : ponerEnPantalla()
+  reloj --> pantallaDerrota : la muestra si se termina el tiempo
+  administradorDeSalas --> reloj : lo pone en cada sala
 ```
