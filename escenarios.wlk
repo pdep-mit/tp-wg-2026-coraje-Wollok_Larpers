@@ -23,12 +23,11 @@ class Puerta {
 object puertaFinal {
     var property position = game.at(7,7)
     var property image = "puerta_1celda.png"
-    var property gano = false
 
     method chocarConJugador(){
         if(player.tiene(llave)) {
-            gano = true
             game.say(player, "Ganaste!!!")
+            game.schedule(500, { game.stop() })
         } else{
             game.say(player, "Te falta la llave maestro")
         }
@@ -94,5 +93,38 @@ object habitacionUno {
         if(!player.tiene(disfrazAnubis)){
             game.addVisual(activadorAnubis)
         }
+        const trampa1 = new puertaTrampaTeletransportacion(
+            position = game.at(6, 7)
+        )
+        game.addVisual(trampa1)
+
+        const trampaSacaItem = new puertaTrampaSacaItem(
+            position = game.at(2, 7)
+        )
+        game.addVisual(trampaSacaItem)
+    }
+}
+
+
+
+class puertaTrampaTeletransportacion{
+    var property position
+    var property image = "puerta_1celda.png"
+    var property proximaSala = salaPrincipal
+    var property posicionJugador = game.at(4, 6)
+
+    method chocarConJugador(){
+        game.say(player, "Puerta trampa...volves a la sala principal")
+        administradorDeSalas.cambiarA(proximaSala, posicionJugador)
+    }
+}
+
+class puertaTrampaSacaItem {
+    var property position
+    var property image = "puerta_1celda.png"
+
+    method chocarConJugador() {
+        inventario.mochila.objetos().clear()
+        game.say(player, "Puerta trampa...perdiste todos tus items")
     }
 }
