@@ -121,7 +121,7 @@ object habitacionUno {
         const trampa1 = new PuertaTrampaTeletransportacion(position = game.at(6, 7))
         game.addVisual(trampa1)
 
-        const trampaSacaItem = new PuertaTrampaSacaItem(position = game.at(2, 7))
+        const trampaSacaItem = new PuertaTrampaRestaTiempo(position = game.at(2, 7))
         game.addVisual(trampaSacaItem)
     }
 }

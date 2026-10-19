@@ -4,6 +4,7 @@ import escenarios.*
 import disfraces.*
 import interactuables.*
 import llave.*
+import reloj.*
 
 class Puerta {
     var property position
@@ -32,10 +33,11 @@ class Puerta {
 }
 
 object puertaAnubis inherits Puerta(
-    position = game.at(7, 7), 
+    position = game.at(4, 4), 
     proximaSala = habitacionDos,
     posicionJugador = game.at(2, 2)
 ) {
+    override method image() = "esfinge.png"
     override method puedePasar() = player.disfraz().permiteAccesoAnubis()
     override method mensajeBloqueo() = "Necesitás el disfraz de Anubis para pasar."
 }
@@ -73,12 +75,12 @@ class PuertaTrampaTeletransportacion inherits Puerta(
     }
 }
 
-class PuertaTrampaSacaItem inherits Puerta(
+class PuertaTrampaRestaTiempo inherits Puerta(
     proximaSala = salaPrincipal, 
     posicionJugador = game.at(0,0) 
 ) {
     override method chocarConJugador() {
-        player.inventario().objetos().clear() 
-        game.say(player, "¡Puerta trampa! Perdiste todos tus items.")
+        reloj.restarMinutos(10) 
+        game.say(player, "¡Puerta trampa! Perdiste 10 minutos de tiempo.")
     }
 }
