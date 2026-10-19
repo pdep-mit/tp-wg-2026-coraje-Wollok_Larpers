@@ -5,6 +5,7 @@ import llave.*
 import disfraces.*
 import interactuables.*
 import reloj.*
+import puertas.*
 
 class Fondo {
     var property position = game.at(0, 0)
@@ -14,46 +15,7 @@ class Fondo {
     method marcarVerdad() {}
     method marcarFalso() {}
 }
-class Puerta {
-    var property position
-    var property image = "puerta_1celda.png"
-    var property proximaSala
-    var property posicionJugador
-    var property condicionParaPasar = { => true } 
-    var property mensajeBloqueo = "La puerta está cerrada."
-    method abrirMenu() {}
-    method marcarVerdad() {}
-    method marcarFalso() {}
 
-    method chocarConJugador() {
-        if (condicionParaPasar.apply()) { 
-            administradorDeSalas.cambiarA(proximaSala, posicionJugador)
-        } else {
-            game.say(player, mensajeBloqueo)
-        }
-    }
-}
-
-
-object puertaFinal {
-    var property position = game.at(5,8)
-    var property image = "puerta_1celda.png"
-    method abrirMenu() {}
-    method marcarVerdad() {}
-    method marcarFalso() {}
-
-    method chocarConJugador(){
-        if(!administradorEstatuas.estanTodasResueltas()) {
-            game.say(player, "Una magia bloquea la puerta.")
-        } 
-        else if(player.tiene(llave)) {
-            //gano = true
-            game.say(player, "Ganaste!!")
-        } else {
-            game.say(player, "Te falta la llave maestro")
-        }
-    }
-}
 object administradorDeSalas {
     method iniciar() {
         self.cambiarA(salaPrincipal, game.at(2, 2))
@@ -78,6 +40,9 @@ object administradorDeSalas {
         keyboard.num1().onPressDo({ player.ponerseDisfraz(disfrazPolicia) })
         keyboard.num2().onPressDo({ 
             if (player.tiene(disfrazAnubis)) player.ponerseDisfraz(disfrazAnubis) 
+        })
+        keyboard.num3().onPressDo({
+            if (player.tiene(disfrazArtista)) player.ponerseDisfraz(disfrazArtista)
         })
         keyboard.e().onPressDo({ 
             const tocados = game.colliders(player)
@@ -132,6 +97,9 @@ object salaPrincipal {
         if(!player.tiene(llave)){
             game.addVisual(llave)
         }
+        if(!player.tiene(disfrazArtista)){
+            game.addVisual(activadorArtista)
+        }
     }
 }
 
@@ -139,77 +107,38 @@ object habitacionUno {
     method dibujar() {
         game.addVisual(new Fondo(image = "habitacion_uno.png"))
 
-        const puertaVolver = new Puerta(
+        const puertaVolver1 = new Puerta(
             position = game.at(4, 7), 
             proximaSala = salaPrincipal,
             posicionJugador = game.at(4, 6) 
         )
-        game.addVisual(puertaVolver)
+        game.addVisual(puertaVolver1)
+        game.addVisual(puertaAnubis)
 
-        const puertaA2 = new Puerta(
-            position = game.at(7, 7), 
-            proximaSala = habitacionDos,
-            posicionJugador = game.at(2, 2) 
-        )
-        game.addVisual(puertaA2)
         if(!player.tiene(disfrazAnubis)){
             game.addVisual(activadorAnubis)
         }
-        const trampa1 = new puertaTrampaTeletransportacion(
-            position = game.at(6, 7)
-        )
+        const trampa1 = new PuertaTrampaTeletransportacion(position = game.at(6, 7))
         game.addVisual(trampa1)
 
-        const trampaSacaItem = new puertaTrampaSacaItem(
-            position = game.at(2, 7)
-        )
+        const trampaSacaItem = new PuertaTrampaSacaItem(position = game.at(2, 7))
         game.addVisual(trampaSacaItem)
     }
 }
 
 
-
-class puertaTrampaTeletransportacion{
-    var property position
-    var property image = "puerta_1celda.png"
-    var property proximaSala = salaPrincipal
-    var property posicionJugador = game.at(4, 6)
-
-    method chocarConJugador(){
-        game.say(player, "Puerta trampa...volves a la sala principal")
-        administradorDeSalas.cambiarA(proximaSala, posicionJugador)
-    }
-}
-
-class puertaTrampaSacaItem {
-    var property position
-    var property image = "puerta_1celda.png"
-
-    method chocarConJugador() {
-        inventario.mochila.objetos().clear()
-        game.say(player, "Puerta trampa...perdiste todos tus items")
-    }
-}
-
 object habitacionDos {
     method dibujar() {
         game.addVisual(new Fondo(image = "habitacion_dos.png")) 
 
-        const puertaVolver1 = new Puerta(
+        const puertaVolver2 = new Puerta(
             position = game.at(1, 4), 
             proximaSala = habitacionUno,
             posicionJugador = game.at(6, 7)
         )
-        game.addVisual(puertaVolver1)
+        game.addVisual(puertaVolver2)
 
-        const puertaA3 = new Puerta(
-            position = game.at(8, 4), 
-            proximaSala = habitacionTres,
-            posicionJugador = game.at(2, 2),
-            condicionParaPasar = { => administradorMarcos.puzzleResuelto() },
-            mensajeBloqueo = "Aún no resolviste el misterio de las pinturas."
-        )
-        game.addVisual(puertaA3)
+        game.addVisual(puertaArtista)
         administradorMarcos.dibujarPuzzle()
     }
 }

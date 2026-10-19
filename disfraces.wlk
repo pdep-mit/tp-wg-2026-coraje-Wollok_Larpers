@@ -4,10 +4,8 @@ object disfrazPolicia {
   method image() = "jugador/jugador_policia.png"
   
   method desgastar(personaje) { } 
-  method teAtacaGuardia() = false
-  method teAtacaCuadroVivo() = false
-  method teAtacaEstatua() = true
-  method abrePuertaModerna() = false
+  method permiteAccesoAnubis() = false
+  method permiteAccesoArtista() = false
 }
 
 object disfrazAnubis {
@@ -27,10 +25,8 @@ object disfrazAnubis {
     }
   }
 
-  method teAtacaGuardia() = true
-  method teAtacaCuadroVivo() = true
-  method teAtacaEstatua() = true
-  method abrePuertaModerna() = true
+  method permiteAccesoAnubis() = true
+  method permiteAccesoArtista() = false
 }
 
 object disfrazArtista {
@@ -50,10 +46,8 @@ object disfrazArtista {
     }
   }
 
-  method teAtacaGuardia() = true
-  method teAtacaCuadroVivo() = false
-  method teAtacaEstatua() = false
-  method abrePuertaModerna() = false
+  method permiteAccesoAnubis() = false
+  method permiteAccesoArtista() = true
 }
 
 object activadorAnubis {
@@ -63,7 +57,7 @@ object activadorAnubis {
     
   method chocarConJugador(){
     player.agregarAlInventario(disfrazAnubis)
-    game.say(player, "¡Conseguiste el disfraz de Anubis! Podes cambiar de disfraz con las teclas 1-4.")
+    game.say(player, "¡Conseguiste el disfraz de Anubis! Podes cambiar de disfraz con las teclas 1-3.")
     game.schedule(100, { game.removeVisual(self) })
   }
 }
@@ -75,7 +69,7 @@ object activadorArtista {
 
   method chocarConJugador(){
     player.agregarAlInventario(disfrazArtista)
-    game.say(player, "¡Conseguiste el disfraz de Artista! Podes cambiar de disfraz con las teclas 1-4.")
+    game.say(player, "¡Conseguiste el disfraz de Artista! Podes cambiar de disfraz con las teclas 1-3.")
     game.schedule(100, { game.removeVisual(self) })
   }
 }
