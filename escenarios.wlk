@@ -3,7 +3,7 @@ import player.*
 import movimientos.*
 import llave.*
 import disfraces.*
-import estatuas.*
+import interactuables.*
 
 class Fondo {
     var property position = game.at(0, 0)
@@ -18,14 +18,21 @@ class Puerta {
     var property image = "puerta_1celda.png"
     var property proximaSala
     var property posicionJugador
+    var property condicionParaPasar = { => true } 
+    var property mensajeBloqueo = "La puerta está cerrada."
     method abrirMenu() {}
     method marcarVerdad() {}
     method marcarFalso() {}
 
     method chocarConJugador() {
-        administradorDeSalas.cambiarA(proximaSala, posicionJugador)
+        if (condicionParaPasar.apply()) { 
+            administradorDeSalas.cambiarA(proximaSala, posicionJugador)
+        } else {
+            game.say(player, mensajeBloqueo)
+        }
     }
 }
+
 
 object puertaFinal {
     var property position = game.at(5,8)
@@ -84,10 +91,6 @@ object administradorDeSalas {
             if (!tocados.isEmpty()) { tocados.first().marcarFalso() }
         })
         game.onCollideDo(player, { elemento => elemento.chocarConJugador() })
-        keyboard.e().onPressDo({ 
-            const tocados = game.colliders(player)
-            if (!tocados.isEmpty()) { tocados.first().abrirMenu() }
-        })
         
         keyboard.v().onPressDo({ 
             const estatuaActiva = administradorEstatuas.estatuas().findOrDefault({ estatua => 
@@ -168,9 +171,12 @@ object habitacionDos {
         const puertaA3 = new Puerta(
             position = game.at(8, 4), 
             proximaSala = habitacionTres,
-            posicionJugador = game.at(2, 2) 
+            posicionJugador = game.at(2, 2),
+            condicionParaPasar = { => administradorMarcos.puzzleResuelto() },
+            mensajeBloqueo = "Aún no resolviste el misterio de las pinturas."
         )
         game.addVisual(puertaA3)
+        administradorMarcos.dibujarPuzzle()
     }
 }
 
