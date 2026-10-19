@@ -15,8 +15,8 @@ object disfrazAnubis {
 
   method image() {
     if (desgaste < 20) return "jugador/jugador_anubis.png"
-    if (desgaste < 40) return "player.png"
-    return "jugador/llave.png"
+    if (desgaste >= 20 and desgaste < 40) return "jugador/anubis_desgaste.png"
+    return "jugador/anubis_desgaste2.png"
   }
 
   method desgastar(personaje) {
@@ -38,8 +38,8 @@ object disfrazArtista {
 
   method image() {
     if (desgaste < 20) return "jugador/jugador_artista.png"
-    if (desgaste < 40) return "jugador/jugador_artista.png"
-    return "jugador/jugador_artista.png"
+    if (desgaste < 40) return "jugador/artista_desgaste.png"
+    return "jugador/artista_desgaste2.png"
   }
 
   method desgastar(personaje) {
