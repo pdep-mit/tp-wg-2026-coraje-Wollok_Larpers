@@ -3,6 +3,7 @@ import player.*
 import movimientos.*
 import llave.*
 import disfraces.*
+import reloj.*
 
 class Fondo {
     var property position = game.at(0, 0)
@@ -43,6 +44,7 @@ object administradorDeSalas {
         game.clear()
         nuevaSala.dibujar()
         self.configurarJugador(posicionJugador)
+        reloj.ponerEnPantalla()
     }
 
     method configurarJugador(posicionJugador) {
@@ -54,7 +56,7 @@ object administradorDeSalas {
         keyboard.left().onPressDo({ movimientos.mover(player, haciaLaIzquierda) })
         keyboard.right().onPressDo({ movimientos.mover(player, haciaLaDerecha) })
         
-        keyboard.num1().onPressDo({ player.ponerseDisfraz(sinDisfraz) })
+        keyboard.num1().onPressDo({ player.ponerseDisfraz(disfrazPolicia) })
         keyboard.num2().onPressDo({ 
             if (player.tiene(disfrazAnubis)) player.ponerseDisfraz(disfrazAnubis) 
         })

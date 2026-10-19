@@ -1,0 +1,44 @@
+import reloj.*
+import pantallasFinales.*
+
+describe "Tests del reloj" {
+
+  test "El reloj arranca a las 12:00" {
+    assert.equals("12:00", reloj.text())
+  }
+
+  test "Al pasar un minuto, el reloj marca 12:01" {
+    reloj.pasarUnMinuto()
+    assert.equals("12:01", reloj.text())
+  }
+
+  test "Si una trampa resta 90 minutos, el reloj pasa a las 13:30" {
+    reloj.restarMinutos(90)
+    assert.equals("13:30", reloj.text())
+  }
+
+  test "Al principio no se terminó el tiempo" {
+    assert.notThat(reloj.seTerminoElTiempo())
+  }
+
+  test "Al llegar a las 18:00 se termina el tiempo" {
+    reloj.restarMinutos(360)
+    assert.that(reloj.seTerminoElTiempo())
+  }
+
+  test "El tiempo restante nunca baja de cero" {
+    reloj.restarMinutos(500)
+    assert.equals(0, reloj.minutosRestantes())
+  }
+}
+
+describe "Tests de las pantallas finales" {
+
+  test "La pantalla de derrota arma su texto con su titulo y su detalle" {
+    assert.equals("GAME OVER - Son las 18:00 y cerró el museo", pantallaDerrota.text())
+  }
+
+  test "La pantalla de victoria arma su texto con su titulo y su detalle" {
+    assert.equals("¡ESCAPASTE DEL MUSEO! - Saliste antes de que cierren", pantallaVictoria.text())
+  }
+}
