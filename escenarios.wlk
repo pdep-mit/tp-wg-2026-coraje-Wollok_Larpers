@@ -10,10 +10,6 @@ import puertas.*
 class Fondo {
     var property position = game.at(0, 0)
     var property image
-    method chocarConJugador() {}
-    method abrirMenu() {}
-    method marcarVerdad() {}
-    method marcarFalso() {}
 }
 
 object administradorDeSalas {

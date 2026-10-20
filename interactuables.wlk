@@ -108,7 +108,7 @@ class EstatuaVerdadera inherits EstatuaRomana {
 }
 
 class Marco inherits ElementoInteractivo {
-    const galeria = ["puzzles/marco.png", "puzzles/marco_castillo.png", "puzzles/marco_gallo.png", "puzzles/marco_mujer.png", "puzzles/marco_paisaje.png"]
+    const galeria = ["puzzles/marco.png", "puzzles/marco_mujer.png", "puzzles/marco_gallo.png", "puzzles/marco_paisaje.png", "puzzles/marco_castillo.png"]
     var indiceActual = 0
     const imagenCorrecta
 
