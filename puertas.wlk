@@ -39,7 +39,7 @@ object puertaAnubis inherits Puerta(
 ) {
     override method image() = "esfinge.png"
     override method puedePasar() = player.disfraz().permiteAccesoAnubis()
-    override method mensajeBloqueo() = "Necesitás el disfraz de Anubis para pasar."
+    override method mensajeBloqueo() = "El polvo de los siglos consume a los simples curiosos. Adopta la piel del Dios de los Muertos, o tu viaje terminará en esta arena."
 }
 
 object puertaArtista inherits Puerta(
