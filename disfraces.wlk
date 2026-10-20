@@ -51,7 +51,7 @@ object disfrazArtista {
 }
 
 object activadorAnubis {
-  var property position = game.at(6, 2)
+  var property position = game.at(6, 1)
 
   method image() = "activadorAnubis.png"
     
@@ -63,7 +63,7 @@ object activadorAnubis {
 }
 
 object activadorArtista {
-  var property position = game.at(7,3)
+  var property position = game.at(7,1)
 
   method image() = "activadorArtista.png"
 

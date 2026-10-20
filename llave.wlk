@@ -2,7 +2,7 @@ import wollok.game.*
 import player.*
 
 object llave {
-  var property position = game.at(5, 2)
+  var property position = game.at(5, 4)
   method image() = "llave.png"
     
   method chocarConJugador() {

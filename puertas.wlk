@@ -33,9 +33,9 @@ class Puerta {
 }
 
 object puertaAnubis inherits Puerta(
-    position = game.at(4, 4), 
+    position = game.at(3, 4), 
     proximaSala = habitacionDos,
-    posicionJugador = game.at(2, 2)
+    posicionJugador = game.at(2, 4)
 ) {
     override method image() = "esfinge.png"
     override method puedePasar() = player.disfraz().permiteAccesoAnubis()
@@ -45,7 +45,7 @@ object puertaAnubis inherits Puerta(
 object puertaArtista inherits Puerta(
     position = game.at(8, 4), 
     proximaSala = habitacionTres,
-    posicionJugador = game.at(2, 2)
+    posicionJugador = game.at(4, 2)
 ) {
     override method puedePasar() = player.disfraz().permiteAccesoArtista() and administradorMarcos.puzzleResuelto()
     override method mensajeBloqueo() {
@@ -82,5 +82,13 @@ class PuertaTrampaRestaTiempo inherits Puerta(
     override method chocarConJugador() {
         reloj.restarMinutos(10) 
         game.say(player, "¡Puerta trampa! Perdiste 10 minutos de tiempo.")
+    }
+}
+
+object cartelPuertas {
+    method position() = game.at(2, 2) 
+    method image() = "cartelPuertas.png"
+    method chocarConJugador(){
+        game.removeVisual(self)
     }
 }

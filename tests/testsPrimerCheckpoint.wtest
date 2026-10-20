@@ -4,6 +4,7 @@ import llave.*
 import disfraces.*
 import movimientos.*
 import escenarios.*
+import puertas.*
 
 describe "Tests sobre Inventario" {
   test "Una mochila recien creada no tiene ningún objeto" {

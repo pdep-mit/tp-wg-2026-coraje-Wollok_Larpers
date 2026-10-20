@@ -18,7 +18,7 @@ class Fondo {
 
 object administradorDeSalas {
     method iniciar() {
-        self.cambiarA(salaPrincipal, game.at(2, 2))
+        self.cambiarA(salaPrincipal, game.at(2, 5))
     }
 
     method cambiarA(nuevaSala, posicionJugador) {
@@ -89,9 +89,9 @@ object salaPrincipal {
         game.addVisual(new Fondo(image = "habitacion_cero.png"))
         
         const puertaA1 = new Puerta(
-            position = game.at(4, 7),
+            position = game.at(4, 8),
             proximaSala = habitacionUno,
-            posicionJugador = game.at(2, 5) 
+            posicionJugador = game.at(2, 1) 
         )
         game.addVisual(puertaA1)
         if(!player.tiene(llave)){
@@ -108,21 +108,28 @@ object habitacionUno {
         game.addVisual(new Fondo(image = "habitacion_uno.png"))
 
         const puertaVolver1 = new Puerta(
-            position = game.at(4, 7), 
+            position = game.at(1, 1), 
             proximaSala = salaPrincipal,
-            posicionJugador = game.at(4, 6) 
+            posicionJugador = game.at(4, 7) 
         )
         game.addVisual(puertaVolver1)
         game.addVisual(puertaAnubis)
+        game.addVisual(cartelPuertas)
 
         if(!player.tiene(disfrazAnubis)){
             game.addVisual(activadorAnubis)
         }
-        const trampa1 = new PuertaTrampaTeletransportacion(position = game.at(6, 7))
+        const trampa1 = new PuertaTrampaTeletransportacion(position = game.at(2, 8))
         game.addVisual(trampa1)
 
-        const trampaSacaItem = new PuertaTrampaRestaTiempo(position = game.at(2, 7))
-        game.addVisual(trampaSacaItem)
+        const trampa2 = new PuertaTrampaRestaTiempo(position = game.at(4, 8))
+        game.addVisual(trampa2)
+
+        const trampa3 = new PuertaTrampaRestaTiempo(position = game.at(6,8))
+        game.addVisual(trampa3)
+
+        const trampa4 = new PuertaTrampaTeletransportacion(position = game.at(8,8))
+        game.addVisual(trampa4)
     }
 }
 
@@ -134,7 +141,7 @@ object habitacionDos {
         const puertaVolver2 = new Puerta(
             position = game.at(1, 4), 
             proximaSala = habitacionUno,
-            posicionJugador = game.at(6, 7)
+            posicionJugador = game.at(3, 3)
         )
         game.addVisual(puertaVolver2)
 
