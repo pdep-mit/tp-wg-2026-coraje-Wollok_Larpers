@@ -86,7 +86,7 @@ object administradorDeSalas {
 
 object salaPrincipal {
     method dibujar() {
-        game.addVisual(new Fondo(image = "habitacion_cero.png"))
+        game.addVisual(new Fondo(image = "ambientacion/habitacion_cero.png"))
         
         const puertaA1 = new Puerta(
             position = game.at(4, 8),
@@ -105,7 +105,7 @@ object salaPrincipal {
 
 object habitacionUno {
     method dibujar() {
-        game.addVisual(new Fondo(image = "habitacion_uno.png"))
+        game.addVisual(new Fondo(image = "ambientacion/habitacion_uno.png"))
 
         const puertaVolver1 = new Puerta(
             position = game.at(1, 1), 
@@ -136,7 +136,7 @@ object habitacionUno {
 
 object habitacionDos {
     method dibujar() {
-        game.addVisual(new Fondo(image = "habitacion_dos.png")) 
+        game.addVisual(new Fondo(image = "ambientacion/habitacion_dos.png")) 
 
         const puertaVolver2 = new Puerta(
             position = game.at(1, 4), 
@@ -152,7 +152,7 @@ object habitacionDos {
 
 object habitacionTres {
     method dibujar() {
-        game.addVisual(new Fondo(image = "habitacion_tres.png"))
+        game.addVisual(new Fondo(image = "ambientacion/habitacion_tres.png"))
 
         const puertaVolver2 = new Puerta(
             position = game.at(4, 1), 

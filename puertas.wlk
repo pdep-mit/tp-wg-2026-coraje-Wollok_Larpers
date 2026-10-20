@@ -11,7 +11,7 @@ class Puerta {
     var property proximaSala
     var property posicionJugador
 
-    method image() = "puerta_1celda.png"
+    method image() = "ambientacion/puerta_1celda.png"
     method abrirMenu() {}
     method marcarVerdad() {}
     method marcarFalso() {}
@@ -37,7 +37,7 @@ object puertaAnubis inherits Puerta(
     proximaSala = habitacionDos,
     posicionJugador = game.at(2, 4)
 ) {
-    override method image() = "esfinge.png"
+    override method image() = "ambientacion/esfinge.png"
     override method puedePasar() = player.disfraz().permiteAccesoAnubis()
     override method mensajeBloqueo() = "El polvo de los siglos consume a los simples curiosos. Adopta la piel del Dios de los Muertos, o tu viaje terminará en esta arena."
 }

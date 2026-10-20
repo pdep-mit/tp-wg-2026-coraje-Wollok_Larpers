@@ -36,7 +36,7 @@ object administradorEstatuas{
         dialogo = "Todas excepto yo mienten   "
     )
     
-    const estatua4 = new EstatuaVerdadera(
+    const estatua4 = new EstatuaRomana(
         position = game.at(6, 5), 
         dialogo = "Solo hay una mentirosa entre nosotras    "
     )
@@ -70,7 +70,7 @@ class EstatuaRomana inherits ElementoInteractivo {
     method dibujarEnJuego() {
         game.addVisual(self)
     }
-    method image() = "estatua.png"
+    method image() = "puzzles/estatua.png"
 
     override method chocarConJugador() {
         game.say(self, dialogo + "(Presioná 'E' para elegir)")
@@ -108,7 +108,7 @@ class EstatuaVerdadera inherits EstatuaRomana {
 }
 
 class Marco inherits ElementoInteractivo {
-    const galeria = ["marco.png", "marco_castillo.png", "marco_gallo.png", "marco_mujer.png", "marco_paisaje.png"]
+    const galeria = ["puzzles/marco.png", "puzzles/marco_castillo.png", "puzzles/marco_gallo.png", "puzzles/marco_mujer.png", "puzzles/marco_paisaje.png"]
     var indiceActual = 0
     const imagenCorrecta
 
@@ -129,11 +129,11 @@ class Marco inherits ElementoInteractivo {
 }
 object poemaGrande {
     var property position = game.at(2, 2) 
-    method image() = "poema.png" 
+    method image() = "puzzles/poema.png"
 }
 object mesaPoema inherits ElementoInteractivo(position = game.at(1, 1)) {
     
-    method image() = "mesa.png"
+    method image() = "ambientacion/mesa.png"
     
     method dibujarEnJuego() {
         game.addVisual(self)
@@ -154,19 +154,19 @@ object mesaPoema inherits ElementoInteractivo(position = game.at(1, 1)) {
 object administradorMarcos {
     const marco1 = new Marco(
         position = game.at(1, 5),
-        imagenCorrecta = "marco_paisaje.png" 
+        imagenCorrecta = "puzzles/marco_paisaje.png" 
     )
     const marco2 = new Marco(
         position = game.at(3, 5), 
-        imagenCorrecta = "marco_mujer.png"
+        imagenCorrecta = "puzzles/marco_mujer.png"
     )
     const marco3 = new Marco(
         position = game.at(5, 5), 
-        imagenCorrecta = "marco_castillo.png"
+        imagenCorrecta = "puzzles/marco_castillo.png"
     )
     const marco4 = new Marco(
         position = game.at(7, 5),
-        imagenCorrecta = "marco_gallo.png"
+        imagenCorrecta = "puzzles/marco_gallo.png"
     )
 
     const property marcos = [marco1, marco2, marco3,marco4]
