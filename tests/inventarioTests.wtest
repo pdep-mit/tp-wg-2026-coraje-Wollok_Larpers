@@ -1,0 +1,52 @@
+import wollok.game.*
+import inventario.*
+import player.*
+import llave.*
+import disfraces.*
+import reloj.*
+
+describe "Tests de Inventario (Generales)" {
+  method initialize() {
+    game.addVisual(player) // chocarConJugador() usa game.say y pasa como parametro a player, por eso el metodo
+  }
+  
+  test "Al empezar el juego la mochila está vacia" {
+    assert.that(mochila.objetos().isEmpty())
+  }
+  
+  test "Al chocar con la llave, la mochila la contiene" {
+    game.addVisual(llave)
+    llave.chocarConJugador()
+    assert.that(mochila.contiene(llave))
+  }
+  
+  test "Al chocar con un activador, la mochila guarda el disfraz y no el activador" {
+    game.addVisual(activadorAnubis)
+    activadorAnubis.chocarConJugador()
+    assert.that(mochila.contiene(disfrazAnubis))
+    assert.notThat(mochila.contiene(activadorAnubis))
+  }
+  
+  test "Al chocar con la llave y con un activador, la mochila guarda los dos" {
+    game.addVisual(llave)
+    game.addVisual(activadorArtista)
+    llave.chocarConJugador()
+    activadorArtista.chocarConJugador()
+    assert.equals(2, mochila.objetos().size())
+    assert.that(mochila.contiene(llave))
+    assert.that(mochila.contiene(disfrazArtista))
+  }
+  
+  test "Cuando el disfraz se rompe por el desgaste, sale de la mochila pero la llave se queda" {
+    game.addVisual(llave)
+    game.addVisual(activadorAnubis)
+    llave.chocarConJugador()
+    activadorAnubis.chocarConJugador()
+    player.ponerseDisfraz(disfrazAnubis)
+    
+    60.times({i => reloj.pasarUnMinuto()})
+    
+    assert.notThat(mochila.contiene(disfrazAnubis))
+    assert.that(mochila.contiene(llave))
+  }
+}

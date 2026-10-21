@@ -1,0 +1,56 @@
+import wollok.game.*
+import player.*
+import puertas.*
+import escenarios.*
+import disfraces.*
+import reloj.*
+
+describe "Puertas Tests" {
+  method initialize() {
+    game.width(10)
+    game.height(10)
+    game.addVisual(player)
+    player.position(game.at(3, 3))
+  }
+  
+  test "Una puerta comun lleva al jugador a la posicion indicada de la sala nueva" {
+    const puerta = new Puerta(
+      position = game.at(4, 8),
+      proximaSala = habitacionUno,
+      posicionJugador = game.at(2, 1)
+    )
+    puerta.chocarConJugador()
+
+    assert.equals(game.at(2, 1), player.position())
+  }
+  
+  test "Con el disfraz de policia, la puerta de Anubis no deja pasar" {
+    puertaAnubis.chocarConJugador()
+    assert.equals(game.at(3, 3), player.position())
+  }
+  
+  test "Con el disfraz de Anubis puesto, la puerta de Anubis deja pasar" {
+    game.addVisual(activadorAnubis)
+    activadorAnubis.chocarConJugador()
+    player.ponerseDisfraz(disfrazAnubis)
+    puertaAnubis.chocarConJugador()
+    assert.equals(game.at(2, 4), player.position())
+  }
+  
+  test "La puerta final no deja pasar si las estatuas no estan resueltas" {
+    puertaFinal.chocarConJugador()
+    assert.equals(game.at(3, 3), player.position())
+  }
+  
+  test "La puerta trampa de tiempo resta 10 minutos" {
+    const trampa = new PuertaTrampaRestaTiempo(position = game.at(4, 8))
+    trampa.chocarConJugador()
+    assert.equals(350, reloj.minutosRestantes())
+  }
+  
+  test "La puerta trampa de teletransportacion devuelve al jugador a la sala principal" {
+    const trampa = new PuertaTrampaTeletransportacion(position = game.at(2, 8))
+    trampa.chocarConJugador()
+    assert.equals(game.at(4, 6), player.position())
+  }
+}

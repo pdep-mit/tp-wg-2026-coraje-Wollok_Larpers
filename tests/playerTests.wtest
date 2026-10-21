@@ -1,0 +1,37 @@
+import wollok.game.*
+import player.*
+import disfraces.*
+
+describe "Player Tests" {
+  method initialize() {
+    game.addVisual(player)
+  }
+  
+  test "El jugador empieza con el disfraz de policia" {
+    assert.equals(disfrazPolicia, player.disfraz())
+    assert.equals("jugador/jugador_policia.png", player.image())
+  }
+  
+  test "Recoger el activador da el disfraz pero no se lo pone solo" {
+    game.addVisual(activadorAnubis)
+    activadorAnubis.chocarConJugador()
+    assert.that(player.tiene(disfrazAnubis))
+    assert.equals(disfrazPolicia, player.disfraz())
+  }
+  
+  test "Despues de recoger el disfraz y ponerselo, cambia la imagen del jugador" {
+    game.addVisual(activadorAnubis)
+    activadorAnubis.chocarConJugador()
+    player.ponerseDisfraz(disfrazAnubis)
+    assert.equals("jugador/jugador_anubis.png", player.image())
+  }
+  
+  test "Al romperse el disfraz, el jugador pierde el disfraz y vuelve al de policia" {
+    game.addVisual(activadorAnubis)
+    activadorAnubis.chocarConJugador()
+    player.ponerseDisfraz(disfrazAnubis)
+    player.romperDisfraz(disfrazAnubis)
+    assert.notThat(player.tiene(disfrazAnubis))
+    assert.equals(disfrazPolicia, player.disfraz())
+  }
+}

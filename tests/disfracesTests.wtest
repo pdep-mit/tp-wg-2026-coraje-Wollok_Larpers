@@ -1,0 +1,55 @@
+import wollok.game.*
+import player.*
+import disfraces.*
+import reloj.*
+
+describe "Tests sobre disfraces" {
+  method initialize() {
+    game.addVisual(player)
+  }
+  
+  method conseguirYPonerse(activador, disfraz) {
+    activador.chocarConJugador()
+    player.ponerseDisfraz(disfraz)
+  }
+  
+  method pasarMinutos(cantidad) {
+    cantidad.times({i => reloj.pasarUnMinuto()})
+  }
+  
+  test "El disfraz de policia no se desgasta nunca" {
+    self.pasarMinutos(100)
+    assert.equals(disfrazPolicia, player.disfraz())
+    assert.equals("jugador/jugador_policia.png", player.image())
+  }
+  
+  test "El disfraz de Anubis cambia de imagen justo a los 20 minutos de uso" {
+    self.conseguirYPonerse(activadorAnubis, disfrazAnubis)
+    self.pasarMinutos(19)
+    assert.equals("jugador/jugador_anubis.png", player.image())
+    self.pasarMinutos(1)
+    assert.equals("jugador/anubis_desgaste.png", player.image())
+  }
+  
+  test "El disfraz de artista llega a su imagen mas gastada a los 40 minutos" {
+    self.conseguirYPonerse(activadorArtista, disfrazArtista)
+    self.pasarMinutos(40)
+    assert.equals("jugador/artista_desgaste2.png", player.image())
+  }
+  
+  test "A los 60 minutos el disfraz se rompe, sale de la mochila y vuelve el de policía" {
+    self.conseguirYPonerse(activadorAnubis, disfrazAnubis)
+    self.pasarMinutos(59)
+    assert.that(player.tiene(disfrazAnubis))
+    self.pasarMinutos(1)
+    assert.notThat(player.tiene(disfrazAnubis))
+    assert.equals(disfrazPolicia, player.disfraz())
+  }
+  
+  test "Un disfraz que se rompio y se consigue de nuevo arranca sin desgaste" {
+    self.conseguirYPonerse(activadorAnubis, disfrazAnubis)
+    self.pasarMinutos(60)
+    self.conseguirYPonerse(activadorAnubis, disfrazAnubis)
+    assert.equals("jugador/jugador_anubis.png", player.image())
+  }
+}

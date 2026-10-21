@@ -1,0 +1,41 @@
+import wollok.game.*
+import movimientos.*
+import player.*
+
+describe "Movimientos Tests" {
+  method initialize() {
+    game.width(10)
+    game.height(10)
+  }
+  
+  test "Al moverse hacia arriba, el jugador sube una celda" {
+    player.position(game.at(5, 4))
+    movimientos.mover(player, haciaArriba)
+    assert.equals(game.at(5, 5), player.position())
+  }
+  
+  test "Al moverse hacia abajo, el jugador baja una celda" {
+    player.position(game.at(5, 5))
+    movimientos.mover(player, haciaAbajo)
+    assert.equals(game.at(5, 4), player.position())
+  }
+  
+  test "En el borde izquierdo de la habitacion, el jugador no puede salir" {
+    player.position(game.at(1, 5))
+    movimientos.mover(player, haciaLaIzquierda)
+    assert.equals(game.at(1, 5), player.position())
+  }
+  
+  test "En el borde superior de la habitacion, el jugador no puede salir" {
+    player.position(game.at(5, 8))
+    movimientos.mover(player, haciaArriba)
+    assert.equals(game.at(5, 8), player.position())
+  }
+  
+  test "El jugador puede llegar a la ultima celda valida pero no pasarla" {
+    player.position(game.at(7, 5))
+    movimientos.mover(player, haciaLaDerecha)
+    movimientos.mover(player, haciaLaDerecha)
+    assert.equals(game.at(8, 5), player.position())
+  }
+}
