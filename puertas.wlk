@@ -39,7 +39,7 @@ object puertaAnubis inherits Puerta(
 ) {
     override method image() = "ambientacion/esfinge.png"
     override method puedePasar() = player.disfraz().permiteAccesoAnubis()
-    override method mensajeBloqueo() = "El polvo de los siglos consume a los simples curiosos. Adopta la piel del Dios de los Muertos, o tu viaje terminará en esta arena."
+    override method mensajeBloqueo() = "El polvo de los siglos consume a los mortales. Adopta la piel del Dios de los Muertos, o tu viaje terminará en esta arena."
 }
 
 object puertaArtista inherits Puerta(
@@ -58,11 +58,16 @@ object puertaArtista inherits Puerta(
 
 object puertaFinal inherits Puerta(
     position = game.at(5,8), 
-    proximaSala = salaPrincipal, 
-    posicionJugador = game.at(4,4)
+    proximaSala = habitacionFinal, 
+    posicionJugador = game.at(5,3)
 ) {
-    override method puedePasar() = administradorEstatuas.estanTodasResueltas()
-    override method mensajeBloqueo() = "Una magia bloquea la puerta. Resolvé el puzzle de estatuas."
+    override method puedePasar() = administradorEstatuas.estanTodasResueltas() and player.inventario().contiene(llave)
+    override method mensajeBloqueo() {
+        if (!administradorEstatuas.estanTodasResueltas()) {
+            return "Una magia bloquea la puerta. Resolvé el puzzle de estatuas."
+        }
+        return "Te olvidaste de la llave maestra!"
+    }
 }
 
 class PuertaTrampaTeletransportacion inherits Puerta(

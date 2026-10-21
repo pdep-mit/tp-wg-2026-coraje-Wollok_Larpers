@@ -1,6 +1,8 @@
 import wollok.game.*
 import pantallasFinales.*
 import player.*
+import escenarios.*
+
 
 object reloj {
   const minutosTotales = 360        
@@ -38,6 +40,8 @@ object reloj {
 
   method ponerEnPantalla() {
     game.addVisual(self)
-    game.onTick(1000, "pasoDelTiempo", { self.pasarUnMinuto() })
+    if (!administradorDeSalas.juegoTerminado()) {
+      game.onTick(1000, "pasoDelTiempo", { self.pasarUnMinuto() })
+    }
   }
 }

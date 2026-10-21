@@ -16,10 +16,11 @@ class PantallaFinal {
   }
 }
 
-object pantallaVictoria inherits PantallaFinal {
+/*object pantallaVictoria inherits PantallaFinal {
   override method titulo() = "¡ESCAPASTE DEL MUSEO!"
   override method detalle() = "Saliste antes de que cierren"
-}
+}*/
+
 
 object pantallaDerrota inherits PantallaFinal {
   override method titulo() = "GAME OVER"

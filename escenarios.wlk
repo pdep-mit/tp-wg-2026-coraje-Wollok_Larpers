@@ -13,6 +13,8 @@ class Fondo {
 }
 
 object administradorDeSalas {
+    var property juegoTerminado = false
+
     method iniciar() {
         self.cambiarA(salaPrincipal, game.at(2, 5))
     }
@@ -28,55 +30,58 @@ object administradorDeSalas {
         player.position(posicionJugador)
         game.addVisual(player)
 
-        keyboard.up().onPressDo({ movimientos.mover(player, haciaArriba) })
-        keyboard.down().onPressDo({ movimientos.mover(player, haciaAbajo) })
-        keyboard.left().onPressDo({ movimientos.mover(player, haciaLaIzquierda) })
-        keyboard.right().onPressDo({ movimientos.mover(player, haciaLaDerecha) })
-        
-        keyboard.num1().onPressDo({ player.ponerseDisfraz(disfrazPolicia) })
-        keyboard.num2().onPressDo({ 
-            if (player.tiene(disfrazAnubis)) player.ponerseDisfraz(disfrazAnubis) 
-        })
-        keyboard.num3().onPressDo({
-            if (player.tiene(disfrazArtista)) player.ponerseDisfraz(disfrazArtista)
-        })
-        keyboard.e().onPressDo({ 
-            const tocados = game.colliders(player)
-            if (!tocados.isEmpty()) { tocados.first().abrirMenu() }
-        })
-        keyboard.v().onPressDo({ 
-            const tocados = game.colliders(player)
-            if (!tocados.isEmpty()) { tocados.first().marcarVerdad() }
-        })
-        keyboard.f().onPressDo({ 
-            const tocados = game.colliders(player)
-            if (!tocados.isEmpty()) { tocados.first().marcarFalso() }
-        })
-        game.onCollideDo(player, { elemento => elemento.chocarConJugador() })
-        
-        keyboard.v().onPressDo({ 
-            const estatuaActiva = administradorEstatuas.estatuas().findOrDefault({ estatua => 
-                game.hasVisual(menuFlotante) and 
-                menuFlotante.position().x() == estatua.position().x() and 
-                menuFlotante.position().y() == estatua.position().y() + 1
-            }, null)
+        if(!juegoTerminado){
+            keyboard.up().onPressDo({ movimientos.mover(player, haciaArriba) })
+            keyboard.down().onPressDo({ movimientos.mover(player, haciaAbajo) })
+            keyboard.left().onPressDo({ movimientos.mover(player, haciaLaIzquierda) })
+            keyboard.right().onPressDo({ movimientos.mover(player, haciaLaDerecha) })
             
-            if(estatuaActiva != null){
-                estatuaActiva.marcarVerdad()
-            }
-        })
-        
-        keyboard.f().onPressDo({ 
-            const estatuaActiva = administradorEstatuas.estatuas().findOrDefault({ estatua => 
-                game.hasVisual(menuFlotante) and 
-                menuFlotante.position().x() == estatua.position().x() and 
-                menuFlotante.position().y() == estatua.position().y() + 1
-            }, null)
+            keyboard.num1().onPressDo({ player.ponerseDisfraz(disfrazPolicia) })
+            keyboard.num2().onPressDo({ 
+                if (player.tiene(disfrazAnubis)) player.ponerseDisfraz(disfrazAnubis) 
+            })
+            keyboard.num3().onPressDo({
+                if (player.tiene(disfrazArtista)) player.ponerseDisfraz(disfrazArtista)
+            })
+            keyboard.e().onPressDo({ 
+                const tocados = game.colliders(player)
+                if (!tocados.isEmpty()) { tocados.first().abrirMenu() }
+            })
+            keyboard.v().onPressDo({ 
+                const tocados = game.colliders(player)
+                if (!tocados.isEmpty()) { tocados.first().marcarVerdad() }
+            })
+            keyboard.f().onPressDo({ 
+                const tocados = game.colliders(player)
+                if (!tocados.isEmpty()) { tocados.first().marcarFalso() }
+            })
+            game.onCollideDo(player, { elemento => elemento.chocarConJugador() })
             
-            if(estatuaActiva != null){
-                estatuaActiva.marcarFalso()
-            }
-        })
+            keyboard.v().onPressDo({ 
+                const estatuaActiva = administradorEstatuas.estatuas().findOrDefault({ estatua => 
+                    game.hasVisual(menuFlotante) and 
+                    menuFlotante.position().x() == estatua.position().x() and 
+                    menuFlotante.position().y() == estatua.position().y() + 1
+                }, null)
+                
+                if(estatuaActiva != null){
+                    estatuaActiva.marcarVerdad()
+                }
+            })
+            
+            keyboard.f().onPressDo({ 
+                const estatuaActiva = administradorEstatuas.estatuas().findOrDefault({ estatua => 
+                    game.hasVisual(menuFlotante) and 
+                    menuFlotante.position().x() == estatua.position().x() and 
+                    menuFlotante.position().y() == estatua.position().y() + 1
+                }, null)
+                
+                if(estatuaActiva != null){
+                    estatuaActiva.marcarFalso()
+                }
+            })
+        }
+        
     }
 }
 
@@ -100,6 +105,7 @@ object salaPrincipal {
 }
 
 object habitacionUno {
+    var cartelYaMostrado = false
     method dibujar() {
         game.addVisual(new Fondo(image = "ambientacion/habitacion_uno.png"))
 
@@ -110,7 +116,15 @@ object habitacionUno {
         )
         game.addVisual(puertaVolver1)
         game.addVisual(puertaAnubis)
-        game.addVisual(cartelPuertas)
+        if (!cartelYaMostrado) {
+            game.addVisual(cartelPuertas)
+            game.schedule(2000, { 
+                if (game.hasVisual(cartelPuertas)) {
+                    game.removeVisual(cartelPuertas)
+                }
+            })
+            cartelYaMostrado = true
+        }
 
         if(!player.tiene(disfrazAnubis)){
             game.addVisual(activadorAnubis)
@@ -160,4 +174,14 @@ object habitacionTres {
 
         administradorEstatuas.dibujarEstatuas()
     }
- }  
+}  
+
+object habitacionFinal {
+    method dibujar(){
+        game.addVisual(new Fondo(image = "ambientacion/habitacion_final.png"))
+        administradorDeSalas.juegoTerminado(true)
+        game.schedule(1000, {
+            game.say(player, "¡Logramos escapar!")
+        })
+    }
+}
