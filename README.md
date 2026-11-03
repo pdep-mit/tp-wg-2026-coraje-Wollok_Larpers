@@ -37,16 +37,17 @@ En el camino te esperan:
 Si el reloj llega a las 18:00, te quedás atrapado en el museo para siempre. Además, los disfraces se desgastan con el tiempo y terminan rompiéndose, así que tendrás que volver a buscarlos.
 
 ## Controles
-Tecla   | Acciones
---------------------
-Flechas - Movimiento del jugador.
-1       - Disfraz de Policia.
-2       - Disfraz de Anubis.
-3       - Disfraz de Artista.
-E       - Interactuar con lo que esta debajo (cuadros,poema,estatuas)
-V/F     - Marcar una estatua con la respuesta correcta.
 
-Las puertas, la llave y los activadores se usan simplemente caminando encima de los mismos.
+| Tecla | Acción |
+|---|---|
+| Flechas | Mover al jugador |
+| `1` | Disfraz de Policía |
+| `2` | Disfraz de Anubis (una vez conseguido) |
+| `3` | Disfraz de Artista (una vez conseguido) |
+| `E` | Interactuar con lo que está debajo del jugador (cuadros, poema, estatuas) |
+| `V` / `F` | Marcar una estatua como Verdadera (`V`) o Falsa (`F`) |
+
+Las puertas, la llave y los activadores de disfraces se usan simplemente caminando encima de ellos.
 
 # Explicaciones
 
