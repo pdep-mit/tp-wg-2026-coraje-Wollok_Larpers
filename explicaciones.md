@@ -6,7 +6,7 @@
 
 - [Polimorfismo](#polimorfismo)
 - [Herencia](#herencia)
-
+- [Template Method](#template-method)
 ---
 
 ## Polimorfismo
@@ -39,6 +39,14 @@
 **`PantallaFinal`:** define el "molde": `text()` arma `titulo()` + " - " + `detalle()`, y `mostrar()` limpia el juego y agrega la pantalla. Cada pantalla redefine solamente `titulo()` y `detalle()`. Así el formato no se repite, y agregar otra pantalla final (por ejemplo, "te atrapó el guardia") es solo crear un objeto nuevo con su título y su detalle.
 
 **`Puerta`:** `chocarConJugador()` es el molde (si `puedePasar()` → `cruzar()`, si no → dice `mensajeBloqueo()`), y cada puerta completa los pasos que varían.
+
+## Encapsulamiento y delegación
+
+**`reloj`:** nadie modifica los minutos directamente, se le pide `restarMinutos(n)`. Así la puerta trampa puede quitar tiempo sin saber cómo está hecho el reloj por dentro, y es el reloj quien sabe cuándo se terminó el tiempo (`seTerminoElTiempo()`).
+
+**`player`:** delega el desgaste en su disfraz (`disfraz.desgastar(self)`). Cada disfraz decide cuándo se rompe y se lo avisa con `romperDisfraz()`.
+
+**`administradorEstatuas` y `administradorMarcos`:** las puertas preguntan `estanTodasResueltas()` / `puzzleResuelto()` sin conocer las estatuas o los marcos individuales.
 
 ---
 
