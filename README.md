@@ -24,11 +24,29 @@ Recuerden que para cada checkpoint hay [expectativas mínimas](https://docs.goog
 
 ## Objetivo
 
-TODO
+¿Te imaginás quedar encerrado en un museo? En este juego vas a vivir esa experiencia. Tu misión: escapar antes de que cierre, a las 18:00.
+
+El reloj arranca a las 12:00 y pasa un minuto de juego por cada segundo real, así que cada decisión cuenta. Para salir vas a tener que recorrer las salas, conseguir los disfraces correctos, resolver los puzzles y encontrar la llave maestra.
+
+En el camino te esperan:
+
+Puertas trampa: algunas te mandan de vuelta al inicio y otras te roban minutos. ¿Cuál será la correcta?
+Un enigma de cuadros: hay que ordenarlos con la ayuda de un poema. ¿Podrás descifrarlo?
+Estatuas parlantes: vas a tener que decidir cuáles dicen la verdad y cuáles mienten para abrir el camino a la libertad.
+
+Si el reloj llega a las 18:00, te quedás atrapado en el museo para siempre. Además, los disfraces se desgastan con el tiempo y terminan rompiéndose, así que tendrás que volver a buscarlos.
 
 ## Controles
+Tecla   | Acciones
+--------------------
+Flechas - Movimiento del jugador.
+1       - Disfraz de Policia.
+2       - Disfraz de Anubis.
+3       - Disfraz de Artista.
+E       - Interactuar con lo que esta debajo (cuadros,poema,estatuas)
+V/F     - Marcar una estatua con la respuesta correcta.
 
-TODO
+Las puertas, la llave y los activadores se usan simplemente caminando encima de los mismos.
 
 # Explicaciones
 
