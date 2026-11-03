@@ -1,70 +1,47 @@
 # Explicaciones teóricas
 
-*A continuación presentamos dónde aplicamos los distintos conceptos que se buscaban en cada entrega:*
+*A continuación presentamos dónde aplicamos los distintos conceptos que se buscaban en cada entrega.*
+
+## Índice
+
+- [Polimorfismo](#polimorfismo)
+- [Herencia](#herencia)
+
+---
 
 ## Polimorfismo
 
-**Puertas:** Todas las puertas logran entender puedePasar() y mensajeBloqueo(), cada una lo resuelve a su manera particular.
-**puertaAnubis** le pregunta al disfraz del jugador, **puertaArtista** pide que el puzzle de marcos este resuelto y **puertaFinal** pide que las estatuas esten resueltas y la llave.
+**Puertas:** todas las puertas entienden `puedePasar()` y `mensajeBloqueo()`, y cada una lo resuelve a su manera.
+- `puertaAnubis` le pregunta al disfraz del jugador.
+- `puertaArtista` pide que el puzzle de marcos esté resuelto, además del disfraz.
+- `puertaFinal` pide que las estatuas estén resueltas y que el jugador tenga la llave.
 
-**Disfraces:** **disfrazPolicia**, **disfrazAnubis** y **disfrazArtista** entienden los mensajes image(), desgastar(personaje), permiteAccesoAnubis() y permiteAccesoArtista(). El **jugador** yl as puertas los usan sin preguntar cual es cuak
+**Disfraces:** `disfrazPolicia`, `disfrazAnubis` y `disfrazArtista` entienden los mensajes `image()`, `desgastar(personaje)`, `permiteAccesoAnubis()` y `permiteAccesoArtista()`. El jugador y las puertas los usan sin preguntar cual es cual.
 
-**Visuales:** Se manda el mensaje chocarConJugador() a cualquier cosa con la que choqueElJugador (puertas,llave,activadores etc) y cada una hace lo suyo.
+**Visuales:** se le manda el mensaje `chocarConJugador()` a cualquier cosa con la que choque el jugador (puertas, llave, activadores de disfraz, estatuas, marcos, etc.) y cada una hace lo suyo.
 
-**Pantallas Finales:** `pantallaVictoria` y `pantallaDerrota` entienden el mismo mensaje `mostrar()`. Quien termina el juego le pide a la pantalla que corresponda que se muestre, sin preguntar con un `if` si se ganó o se perdió.
+**Pantallas finales:** `pantallaVictoria` y `pantallaDerrota` entienden el mismo mensaje `mostrar()`. Quien termina el juego le pide a la pantalla que corresponda que se muestre, sin preguntar con un `if` si se ganó o se perdió.
 
-## Reloj y pantallas finales
+## Herencia
 
-**Estado:** el `reloj` guarda `minutosRestantes` y lo va cambiando. Arranca en 360 (de las 12:00 a las 18:00) y cada segundo real pasa un minuto del juego (con `game.onTick`). Como es un objeto, conserva su estado aunque `game.clear()` lo saque de la pantalla al cambiar de sala: cuando se vuelve a poner, sigue desde la misma hora.
+**`Puerta`:** `puertaAnubis`, `puertaArtista` y `puertaFinal` heredan de ella y redefinen solo lo que cambia.
+- `PuertaTrampaTeletransportacion` extiende `cruzar()` y llama a `super()`.
+- `PuertaTrampaRestaTiempo` redefine `chocarConJugador()`.
 
-**Encapsulamiento:** nadie modifica los minutos directamente, sino que se le pide al reloj `restarMinutos(n)`. Así la puerta trampa puede quitar tiempo sin saber cómo está hecho el reloj por dentro. El reloj también es el que sabe cuándo se terminó el tiempo (`seTerminoElTiempo()`).
+**`ElementoInteractivo`:** es la clase base de estatuas, marcos, mesa y menú. Define como no-ops los mensajes `chocarConJugador()`, `abrirMenu()`, `marcarVerdad()` y `marcarFalso()`, para que el teclado pueda mandárselos a cualquier elemento.
 
-**Polimorfismo:** `pantallaVictoria` y `pantallaDerrota` entienden el mismo mensaje `mostrar()`. Quien termina el juego le pide a la pantalla que corresponda que se muestre, sin preguntar con un `if` si se ganó o se perdió.
+**`EstatuaRomana` / `EstatuaVerdadera`:** la segunda hereda de la primera y solo redefine `diceLaVerdad()`.
 
-**Herencia y template method:** las dos pantallas heredan de la clase abstracta `PantallaFinal`. La clase define el "molde": cómo se arma el texto (`text()` = `titulo()` + " - " + `detalle()`) y cómo se muestra. Cada pantalla redefine solamente `titulo()` y `detalle()`. Así el formato no se repite, y agregar otra pantalla final (por ejemplo, "te atrapó el guardia") es solo crear un objeto nuevo con su título y su detalle.
+**`PantallaFinal`:** clase abstracta de la que heredan las pantallas finales.
 
-**Tests:** `tests/testsReloj.wtest` prueba la lógica del reloj sin esperar tiempo real (usando `restarMinutos` y `pasarUnMinuto`) y el texto de las dos pantallas finales.
+## Template method
+
+**`PantallaFinal`:** define el "molde": `text()` arma `titulo()` + " - " + `detalle()`, y `mostrar()` limpia el juego y agrega la pantalla. Cada pantalla redefine solamente `titulo()` y `detalle()`. Así el formato no se repite, y agregar otra pantalla final (por ejemplo, "te atrapó el guardia") es solo crear un objeto nuevo con su título y su detalle.
+
+**`Puerta`:** `chocarConJugador()` es el molde (si `puedePasar()` → `cruzar()`, si no → dice `mensajeBloqueo()`), y cada puerta completa los pasos que varían.
+
+---
 
 # Diagramas
 
-*Incluír al menos un diagrama para comunicar su solución*
-
-## Reloj y pantallas finales
-
-```mermaid
-classDiagram
-  class reloj {
-    <<object>>
-    minutosRestantes
-    pasarUnMinuto()
-    restarMinutos(cantidad)
-    seTerminoElTiempo()
-    text()
-    ponerEnPantalla()
-  }
-  class PantallaFinal {
-    <<abstract>>
-    titulo()*
-    detalle()*
-    text()
-    mostrar()
-  }
-  class pantallaVictoria {
-    <<object>>
-    titulo()
-    detalle()
-  }
-  class pantallaDerrota {
-    <<object>>
-    titulo()
-    detalle()
-  }
-  class administradorDeSalas {
-    <<object>>
-    cambiarA(nuevaSala, posicionJugador)
-  }
-  PantallaFinal <|-- pantallaVictoria
-  PantallaFinal <|-- pantallaDerrota
-  reloj --> pantallaDerrota : la muestra si se termina el tiempo
-  administradorDeSalas --> reloj : lo pone en cada sala
-```
+falta completar aca
