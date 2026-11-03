@@ -1,6 +1,17 @@
 # Explicaciones teóricas
 
-*Completar comentando dónde se aplicaron los distintos conceptos buscados*
+*A continuación presentamos dónde aplicamos los distintos conceptos que se buscaban en cada entrega:*
+
+## Polimorfismo
+
+**Puertas:** Todas las puertas logran entender puedePasar() y mensajeBloqueo(), cada una lo resuelve a su manera particular.
+**puertaAnubis** le pregunta al disfraz del jugador, **puertaArtista** pide que el puzzle de marcos este resuelto y **puertaFinal** pide que las estatuas esten resueltas y la llave.
+
+**Disfraces:** **disfrazPolicia**, **disfrazAnubis** y **disfrazArtista** entienden los mensajes image(), desgastar(personaje), permiteAccesoAnubis() y permiteAccesoArtista(). El **jugador** yl as puertas los usan sin preguntar cual es cuak
+
+**Visuales:** Se manda el mensaje chocarConJugador() a cualquier cosa con la que choqueElJugador (puertas,llave,activadores etc) y cada una hace lo suyo.
+
+**Pantallas Finales:** `pantallaVictoria` y `pantallaDerrota` entienden el mismo mensaje `mostrar()`. Quien termina el juego le pide a la pantalla que corresponda que se muestre, sin preguntar con un `if` si se ganó o se perdió.
 
 ## Reloj y pantallas finales
 

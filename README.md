@@ -30,9 +30,9 @@ El reloj arranca a las 12:00 y pasa un minuto de juego por cada segundo real, as
 
 En el camino te esperan:
 
-Puertas trampa: algunas te mandan de vuelta al inicio y otras te roban minutos. ¿Cuál será la correcta?
-Un enigma de cuadros: hay que ordenarlos con la ayuda de un poema. ¿Podrás descifrarlo?
-Estatuas parlantes: vas a tener que decidir cuáles dicen la verdad y cuáles mienten para abrir el camino a la libertad.
+- Puertas trampa: algunas te mandan de vuelta al inicio y otras te roban minutos. ¿Cuál será la correcta?
+- Un enigma de cuadros: hay que ordenarlos con la ayuda de un poema. ¿Podrás descifrarlo?
+- Estatuas parlantes: vas a tener que decidir cuáles dicen la verdad y cuáles mienten para abrir el camino a la libertad.
 
 Si el reloj llega a las 18:00, te quedás atrapado en el museo para siempre. Además, los disfraces se desgastan con el tiempo y terminan rompiéndose, así que tendrás que volver a buscarlos.
 
