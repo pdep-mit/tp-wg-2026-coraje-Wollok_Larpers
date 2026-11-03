@@ -40,6 +40,12 @@
 
 **`Puerta`:** `chocarConJugador()` es el molde (si `puedePasar()` → `cruzar()`, si no → dice `mensajeBloqueo()`), y cada puerta completa los pasos que varían.
 
+## WKO y estados
+
+`player`, `reloj`, `mochila`, `administradorDeSalas` y las salas son objetos únicos que conservan su estado aunque `game.clear()` saque todo de la pantalla al cambiar de sala (inventario, desgaste de disfraces, minutos restantes, estado de los puzzles).
+
+El `reloj` arranca en 360 minutos (de 12:00 a 18:00) y pasa un minuto de juego por cada segundo real, con `game.onTick`.
+
 ## Encapsulamiento y delegación
 
 **`reloj`:** nadie modifica los minutos directamente, se le pide `restarMinutos(n)`. Así la puerta trampa puede quitar tiempo sin saber cómo está hecho el reloj por dentro, y es el reloj quien sabe cuándo se terminó el tiempo (`seTerminoElTiempo()`).
@@ -48,6 +54,11 @@
 
 **`administradorEstatuas` y `administradorMarcos`:** las puertas preguntan `estanTodasResueltas()` / `puzzleResuelto()` sin conocer las estatuas o los marcos individuales.
 
+## Colecciones
+
+- `administradorEstatuas.estatuas()` y `administradorMarcos.marcos()` son listas sobre las que se usan `forEach` (para dibujar) y `all` (para verificar si el puzzle está resuelto).
+- `mochila.objetos()` guarda el inventario con `add`, `contains` y `remove`.
+- `Marco` guarda una lista de imágenes (`galeria`) y la recorre con el módulo para cambiar de cuadro.
 ---
 
 # Diagramas
