@@ -23,7 +23,7 @@ class IndicadorEstado inherits ElementoInteractivo {
     }
 }
 object administradorEstatuas{
-    const estatua1 = new EstatuaRomana(
+    const estatua1 = new EstatuaMentirosa(
         position = game.at(3, 4), 
         dialogo = "La mayoría de nosotras decimos la verdad     "
     )
@@ -31,12 +31,12 @@ object administradorEstatuas{
         position = game.at(4, 5), 
         dialogo = "La mayoría de nosotras somos mentirosas     "
     )
-    const estatua3 = new EstatuaRomana(
+    const estatua3 = new EstatuaMentirosa(
         position = game.at(5, 6), 
         dialogo = "Todas excepto yo mienten   "
     )
     
-    const estatua4 = new EstatuaRomana(
+    const estatua4 = new EstatuaMentirosa(
         position = game.at(6, 5), 
         dialogo = "Solo hay una mentirosa entre nosotras    "
     )
@@ -57,7 +57,7 @@ object administradorEstatuas{
     }
 }
 
-class EstatuaRomana inherits ElementoInteractivo {
+class Estatua inherits ElementoInteractivo {
     const dialogo
     var property estado = "neutral"
     var indicador = null
@@ -87,7 +87,7 @@ class EstatuaRomana inherits ElementoInteractivo {
         if (!game.hasVisual(indicador)) {
             game.addVisual(indicador)
         }
-        if (!game.hasVisual(menuFlotante)) { game.removeVisual(menuFlotante) }
+        if (game.hasVisual(menuFlotante)) { game.removeVisual(menuFlotante) }
     }
 
     override method marcarFalso() {
@@ -99,12 +99,17 @@ class EstatuaRomana inherits ElementoInteractivo {
         if (game.hasVisual(menuFlotante)) { game.removeVisual(menuFlotante) }
     }
 
-    method diceLaVerdad() = false
+    method diceLaVerdad()
     method estaCorrecta() = (self.diceLaVerdad() and estado == "verdad") or (!self.diceLaVerdad() and estado == "falso")
 }
 
-class EstatuaVerdadera inherits EstatuaRomana {
+// aca hice una clase abstracta estatua, antes era solo estatuaMentirosa y pense que era mejor hacer dos clases que redefinan el metodo de diceLaVerdad e instanciar solamente verdadera o mentirosa y no romana como era antes (ahora class Estatua)
+class EstatuaVerdadera inherits Estatua {
     override method diceLaVerdad() = true
+}
+
+class EstatuaMentirosa inherits Estatua {
+    override method diceLaVerdad() = false
 }
 
 class Marco inherits ElementoInteractivo {

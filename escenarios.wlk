@@ -56,32 +56,7 @@ object administradorDeSalas {
                 if (!tocados.isEmpty()) { tocados.first().marcarFalso() }
             })
             game.onCollideDo(player, { elemento => elemento.chocarConJugador() })
-            
-            keyboard.v().onPressDo({ 
-                const estatuaActiva = administradorEstatuas.estatuas().findOrDefault({ estatua => 
-                    game.hasVisual(menuFlotante) and 
-                    menuFlotante.position().x() == estatua.position().x() and 
-                    menuFlotante.position().y() == estatua.position().y() + 1
-                }, null)
-                
-                if(estatuaActiva != null){
-                    estatuaActiva.marcarVerdad()
-                }
-            })
-            
-            keyboard.f().onPressDo({ 
-                const estatuaActiva = administradorEstatuas.estatuas().findOrDefault({ estatua => 
-                    game.hasVisual(menuFlotante) and 
-                    menuFlotante.position().x() == estatua.position().x() and 
-                    menuFlotante.position().y() == estatua.position().y() + 1
-                }, null)
-                
-                if(estatuaActiva != null){
-                    estatuaActiva.marcarFalso()
-                }
-            })
         }
-        
     }
 }
 
