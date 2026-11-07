@@ -2,11 +2,7 @@ import wollok.game.*
 
 class PantallaFinal {
   method image()
-
   method position() = game.origin()
-
-  method textColor() = "000000FF"
-
   method mostrar() {
     game.clear()            
     game.addVisual(self)
