@@ -1,6 +1,4 @@
 import wollok.game.*
-import player.*
-import escenarios.* 
 
 class ElementoInteractivo {
     var property position

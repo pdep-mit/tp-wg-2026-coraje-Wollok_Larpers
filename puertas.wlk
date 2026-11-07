@@ -1,7 +1,6 @@
 import wollok.game.*
 import player.*
 import escenarios.*
-import disfraces.*
 import interactuables.*
 import llave.*
 import reloj.*
@@ -61,7 +60,7 @@ object puertaFinal inherits Puerta(
     proximaSala = habitacionFinal, 
     posicionJugador = game.at(5,3)
 ) {
-    override method puedePasar() = administradorEstatuas.estanTodasResueltas() and player.inventario().contiene(llave)
+    override method puedePasar() = administradorEstatuas.estanTodasResueltas() and player.tiene(llave)
     override method mensajeBloqueo() {
         if (!administradorEstatuas.estanTodasResueltas()) {
             return "Una magia bloquea la puerta. Resolvé el puzzle de estatuas."
@@ -84,7 +83,15 @@ class PuertaTrampaRestaTiempo inherits Puerta(
     proximaSala = salaPrincipal, 
     posicionJugador = game.at(0,0) 
 ) {
-    override method chocarConJugador() {
+    /* override method chocarConJugador() {
+    reloj.restarMinutos(10) 
+    game.say(player, "¡Puerta trampa! Perdiste 10 minutos de tiempo.")
+} 
+
+Antes tenia lo de arriba, lo cambie a cruzar porque tenia mas sentido, lo unico que hace justamente es cruzar y si no con el de arriba 
+rompo todo el molde, osea redefini todo el metodo
+*/
+    override method cruzar() {
         reloj.restarMinutos(10) 
         game.say(player, "¡Puerta trampa! Perdiste 10 minutos de tiempo.")
     }
