@@ -6,6 +6,7 @@ import disfraces.*
 import interactuables.*
 import reloj.*
 import puertas.*
+import pantallasFinales.*
 
 class Fondo {
     var property position = game.at(0, 0)
@@ -152,10 +153,11 @@ object habitacionTres {
 }  
 
 object habitacionFinal {
-    method dibujar(){
-        game.addVisual(new Fondo(image = "ambientacion/habitacion_final.png"))
+    method dibujar() {
         administradorDeSalas.juegoTerminado(true)
-        game.schedule(1000, {
+        game.schedule(1, {
+            pantallaVictoria.mostrar()
+            game.addVisual(player)
             game.say(player, "¡Logramos escapar!")
         })
     }

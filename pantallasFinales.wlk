@@ -1,12 +1,9 @@
 import wollok.game.*
 
 class PantallaFinal {
-  method titulo()
-  method detalle()
+  method image()
 
-  method text() = self.titulo() + " - " + self.detalle()
-
-  method position() = game.center()
+  method position() = game.origin()
 
   method textColor() = "000000FF"
 
@@ -16,13 +13,12 @@ class PantallaFinal {
   }
 }
 
-/*object pantallaVictoria inherits PantallaFinal {
-  override method titulo() = "¡ESCAPASTE DEL MUSEO!"
-  override method detalle() = "Saliste antes de que cierren"
-}*/
+//la pantallaVictoria es dibujada por el objeto habitacionFinal en escenarios.wlk y la pantallaDerrota por restarMinutos en reloj.wlk
+object pantallaVictoria inherits PantallaFinal {
+  override method image() = "ambientacion/habitacion_finalBueno.png"
+}
 
 
 object pantallaDerrota inherits PantallaFinal {
-  override method titulo() = "GAME OVER"
-  override method detalle() = "Son las 18:00 y cerró el museo"
+  override method image() = "ambientacion/habitacion_finalMalo.png"
 }
