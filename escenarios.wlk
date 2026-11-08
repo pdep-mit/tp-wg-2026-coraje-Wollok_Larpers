@@ -6,7 +6,6 @@ import disfraces.*
 import interactuables.*
 import reloj.*
 import puertas.*
-import pantallasFinales.*
 
 class Fondo {
     var property position = game.at(0, 0)
@@ -58,6 +57,14 @@ object administradorDeSalas {
             })
             game.onCollideDo(player, { elemento => elemento.chocarConJugador() })
         }
+    }
+    method reiniciar() {
+        self.juegoTerminado(false)
+        reloj.reiniciar()
+        player.reiniciar()
+        administradorEstatuas.reiniciarPuzzle()
+        administradorMarcos.reiniciarPuzzle()
+        self.iniciar()
     }
 }
 
@@ -187,12 +194,32 @@ object habitacionTres {
 }  
 
 object habitacionFinal {
-    method dibujar() {
+    method dibujar(){
+        game.addVisual(new Fondo(image = "ambientacion/habitacion_finalBueno.png"))
+        game.addVisual(cartelReinicio)
         administradorDeSalas.juegoTerminado(true)
-        game.schedule(1, {
-            pantallaVictoria.mostrar()
-            game.addVisual(player)
+        game.schedule(1000, {
             game.say(player, "¡Logramos escapar!")
         })
+        keyboard.r().onPressDo({ administradorDeSalas.reiniciar() })
     }
+}
+
+object pantallaDerrota {
+    method position() = game.origin()
+    method image() = "ambientacion/habitacion_finalMalo.png"
+    
+    method mostrar() {
+        game.clear()            
+        game.addVisual(self)
+        administradorDeSalas.juegoTerminado(true)
+        keyboard.r().onPressDo({ administradorDeSalas.reiniciar() })
+        game.addVisual(cartelReinicio)
+    }
+}
+
+object cartelReinicio {
+    method position() = game.at(2, 2) 
+    method text() = "Presiona la tecla R para reiniciar"
+    method textColor() = "FFFF00FF" 
 }

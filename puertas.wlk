@@ -14,10 +14,6 @@ class Puerta {
     var property condicionDePaso = { => true } 
     var property generadorMensaje = { => "La puerta está cerrada." }
 
-    method abrirMenu() {}
-    method marcarVerdad() {}
-    method marcarFalso() {}
-
     method chocarConJugador() {
         if (self.puedePasar()) {
             self.cruzar()

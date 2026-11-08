@@ -53,6 +53,10 @@ object administradorEstatuas{
     method estanTodasResueltas() {
         return estatuas.all({ estatua => estatua.estaCorrecta() })
     }
+
+    method reiniciarPuzzle() {
+        estatuas.forEach({ estatua => estatua.reiniciar() })
+    }
 }
 
 class Estatua inherits ElementoInteractivo {
@@ -97,6 +101,13 @@ class Estatua inherits ElementoInteractivo {
         if (game.hasVisual(menuFlotante)) { game.removeVisual(menuFlotante) }
     }
 
+    method reiniciar() {
+        estado = "neutral"
+        if (game.hasVisual(indicador)) {
+            game.removeVisual(indicador)
+        }
+    }
+
     method diceLaVerdad()
     method estaCorrecta() = (self.diceLaVerdad() and estado == "verdad") or (!self.diceLaVerdad() and estado == "falso")
 }
@@ -126,6 +137,10 @@ class Marco inherits ElementoInteractivo {
 
     override method abrirMenu() {
         indiceActual = (indiceActual + 1) % galeria.size()
+    }
+
+    method reiniciar() {
+        indiceActual = 0
     }
 
     method estaCorrecto() = self.image() == imagenCorrecta
@@ -183,5 +198,8 @@ object administradorMarcos {
 
     method puzzleResuelto() {
         return marcos.all({ marco => marco.estaCorrecto() })
+    }
+    method reiniciarPuzzle() {
+        marcos.forEach({ marco => marco.reiniciar() })
     }
 }

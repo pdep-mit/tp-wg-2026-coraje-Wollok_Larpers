@@ -1,5 +1,4 @@
 import wollok.game.*
-import pantallasFinales.*
 import player.*
 import escenarios.*
 
@@ -44,4 +43,8 @@ object reloj {
       game.onTick(1000, "pasoDelTiempo", { self.pasarUnMinuto() })
     }
   }
+  method reiniciar() {
+    minutosRestantes = minutosTotales
+  }
 }
+

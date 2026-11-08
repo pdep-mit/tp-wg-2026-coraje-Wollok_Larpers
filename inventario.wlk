@@ -7,4 +7,6 @@ object mochila {
   method contiene(objeto) = objetos.contains(objeto)
 
   method quitar(objeto) = objetos.remove(objeto)
+
+  method vaciar() = objetos.clear()
 }

@@ -28,4 +28,9 @@ object player {
     self.ponerseDisfraz(disfrazPolicia) 
     game.say(self, "¡Perdiste el disfraz!")
   }
+
+  method reiniciar() {
+    self.ponerseDisfraz(disfrazPolicia)
+    inventario.vaciar()
+  }
 }
