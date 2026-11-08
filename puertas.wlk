@@ -9,8 +9,11 @@ class Puerta {
     var property position
     var property proximaSala
     var property posicionJugador
+    
+    var property image = "ambientacion/puerta_1celda.png"
+    var property condicionDePaso = { => true } 
+    var property generadorMensaje = { => "La puerta está cerrada." }
 
-    method image() = "ambientacion/puerta_1celda.png"
     method abrirMenu() {}
     method marcarVerdad() {}
     method marcarFalso() {}
@@ -23,49 +26,11 @@ class Puerta {
         }
     }
 
-    method puedePasar() = true 
-    method mensajeBloqueo() = "La puerta está cerrada."
+    method puedePasar() = condicionDePaso.apply()
+    method mensajeBloqueo() = generadorMensaje.apply()
 
     method cruzar() {
         administradorDeSalas.cambiarA(proximaSala, posicionJugador)
-    }
-}
-
-object puertaAnubis inherits Puerta(
-    position = game.at(3, 4), 
-    proximaSala = habitacionDos,
-    posicionJugador = game.at(2, 4)
-) {
-    override method image() = "ambientacion/esfinge.png"
-    override method puedePasar() = player.disfraz().permiteAccesoAnubis()
-    override method mensajeBloqueo() = "El polvo de los siglos consume a los mortales. Adopta la piel del Dios de los Muertos, o tu viaje terminará en esta arena."
-}
-
-object puertaArtista inherits Puerta(
-    position = game.at(8, 4), 
-    proximaSala = habitacionTres,
-    posicionJugador = game.at(4, 2)
-) {
-    override method puedePasar() = player.disfraz().permiteAccesoArtista() and administradorMarcos.puzzleResuelto()
-    override method mensajeBloqueo() {
-        if (!administradorMarcos.puzzleResuelto()) {
-            return "Las pinturas aún no están en orden."
-        }
-        return "El guardián de la galería exige que vistas como artista."
-    }
-}
-
-object puertaFinal inherits Puerta(
-    position = game.at(5,8), 
-    proximaSala = habitacionFinal, 
-    posicionJugador = game.at(5,3)
-) {
-    override method puedePasar() = administradorEstatuas.estanTodasResueltas() and player.tiene(llave)
-    override method mensajeBloqueo() {
-        if (!administradorEstatuas.estanTodasResueltas()) {
-            return "Una magia bloquea la puerta. Resolvé el puzzle de estatuas."
-        }
-        return "Te olvidaste de la llave maestra!"
     }
 }
 
@@ -83,18 +48,10 @@ class PuertaTrampaRestaTiempo inherits Puerta(
     proximaSala = salaPrincipal, 
     posicionJugador = game.at(0,0) 
 ) {
-    /* override method chocarConJugador() {
-    reloj.restarMinutos(10) 
-    game.say(player, "¡Puerta trampa! Perdiste 10 minutos de tiempo.")
-} 
-
-Antes tenia lo de arriba, lo cambie a cruzar porque tenia mas sentido, lo unico que hace justamente es cruzar y si no con el de arriba 
-rompo todo el molde, osea redefini todo el metodo
-*/
-    override method cruzar() {
+    override method chocarConJugador() {
         reloj.restarMinutos(10) 
         game.say(player, "¡Puerta trampa! Perdiste 10 minutos de tiempo.")
-    }
+    } 
 }
 
 object cartelPuertas {

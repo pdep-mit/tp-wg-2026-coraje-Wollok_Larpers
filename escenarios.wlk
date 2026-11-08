@@ -90,6 +90,14 @@ object habitacionUno {
             proximaSala = salaPrincipal,
             posicionJugador = game.at(4, 7) 
         )
+        const puertaAnubis = new Puerta(
+            position = game.at(3, 4), 
+            proximaSala = habitacionDos,
+            posicionJugador = game.at(2, 4),
+            image = "ambientacion/esfinge.png",
+            condicionDePaso = { => player.disfraz().permiteAccesoAnubis() },
+            generadorMensaje = { => "El polvo de los siglos consume a los mortales. Adopta la piel del Dios de los Muertos." }
+        )
         game.addVisual(puertaVolver1)
         game.addVisual(puertaAnubis)
         if (!cartelYaMostrado) {
@@ -129,8 +137,21 @@ object habitacionDos {
             proximaSala = habitacionUno,
             posicionJugador = game.at(3, 3)
         )
-        game.addVisual(puertaVolver2)
+        const puertaArtista = new Puerta(
+            position = game.at(8, 4), 
+            proximaSala = habitacionTres,
+            posicionJugador = game.at(4, 2),
+            condicionDePaso = {=> player.disfraz().permiteAccesoArtista() and administradorMarcos.puzzleResuelto()},
+            generadorMensaje = { => 
+                if (!administradorMarcos.puzzleResuelto()) {
+                    "Las pinturas aún no están en orden."
+                } else {
+                    "El guardián de la galería exige que vistas como artista."
+                }
+            }
+        )
 
+        game.addVisual(puertaVolver2)
         game.addVisual(puertaArtista)
         administradorMarcos.dibujarPuzzle()
     }
@@ -144,6 +165,19 @@ object habitacionTres {
             position = game.at(4, 1), 
             proximaSala = habitacionDos,
             posicionJugador = game.at(7, 4) 
+        )
+        const puertaFinal = new Puerta(
+            position = game.at(5, 8), 
+            proximaSala = habitacionFinal, 
+            posicionJugador = game.at(5, 3),
+            condicionDePaso = { => administradorEstatuas.estanTodasResueltas() and player.tiene(llave) },
+            generadorMensaje = { => 
+                if (!administradorEstatuas.estanTodasResueltas()) {
+                    "Una magia bloquea la puerta. Resolvé el puzzle de estatuas."
+                } else {
+                    "Te olvidaste de la llave maestra!"
+                }
+            }
         )
         game.addVisual(puertaVolver2)
         game.addVisual(puertaFinal)
