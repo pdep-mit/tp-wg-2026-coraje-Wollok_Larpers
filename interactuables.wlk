@@ -12,14 +12,36 @@ object menuFlotante inherits ElementoInteractivo(position = game.at(4, 8)) {
     method textColor() = "FFFFFFFF"
 }
 
-class IndicadorEstado inherits ElementoInteractivo {
-    var property estado = "neutral"
-
-    method image() {
-        if (estado == "verdad") return "marca_v.png"
-        return "marca_f.png"
+class EstadoEstatua inherits ElementoInteractivo {
+    method coincideCon(diceLaVerdad)
+    method mostrar() {
+        if (!game.hasVisual(self)) {
+            game.addVisual(self)
+        }
+    }
+    method ocultar() {
+        if (game.hasVisual(self)) {
+            game.removeVisual(self)
+        }
     }
 }
+
+class EstadoNeutral inherits EstadoEstatua {
+    override method coincideCon(diceLaVerdad) = false
+    override method mostrar() {} 
+    override method ocultar() {}
+}
+
+class EstadoVerdad inherits EstadoEstatua {
+    method image() = "marca_v.png"
+    override method coincideCon(diceLaVerdad) = diceLaVerdad
+}
+
+class EstadoFalso inherits EstadoEstatua {
+    method image() = "marca_f.png"
+    override method coincideCon(diceLaVerdad) = !diceLaVerdad
+}
+
 object administradorEstatuas{
     const estatua1 = new EstatuaMentirosa(
         position = game.at(3, 4), 
@@ -61,58 +83,52 @@ object administradorEstatuas{
 
 class Estatua inherits ElementoInteractivo {
     const dialogo
-    var property estado = "neutral"
-    var indicador = null
+    var estado = null
 
     method initialize() {
-        indicador = new IndicadorEstado(
-            position = game.at(self.position().x(), self.position().y() + 1))
+        estado = new EstadoNeutral(position = self.posicionIndicador())
     }
-
+    method posicionIndicador() = game.at(self.position().x(), self.position().y() + 1)
     method dibujarEnJuego() {
         game.addVisual(self)
     }
     method image() = "puzzles/estatua.png"
-
     override method chocarConJugador() {
         game.say(self, dialogo + "(Presioná 'E' para elegir)")
     }
+
     override method abrirMenu() {
         if (!game.hasVisual(menuFlotante)) {
             game.addVisual(menuFlotante)
         }
     }
-
-    override method marcarVerdad() {
-        estado = "verdad"
-        indicador.estado("verdad")
-        if (!game.hasVisual(indicador)) {
-            game.addVisual(indicador)
+    method cerrarMenu() {
+        if (game.hasVisual(menuFlotante)) {
+            game.removeVisual(menuFlotante)
         }
-        if (game.hasVisual(menuFlotante)) { game.removeVisual(menuFlotante) }
+    }
+    method cambiarEstado(nuevoEstado) {
+        estado.ocultar()
+        estado = nuevoEstado
+        estado.mostrar()
     }
 
+    override method marcarVerdad () {
+        self.cambiarEstado(new EstadoVerdad(position = self.posicionIndicador()))
+        self.cerrarMenu()
+    }
     override method marcarFalso() {
-        estado = "falso"
-        indicador.estado("falso")
-        if (!game.hasVisual(indicador)) {
-            game.addVisual(indicador)
-        }
-        if (game.hasVisual(menuFlotante)) { game.removeVisual(menuFlotante) }
+        self.cambiarEstado(new EstadoFalso(position = self.posicionIndicador()))
+        self.cerrarMenu()
     }
-
     method reiniciar() {
-        estado = "neutral"
-        if (game.hasVisual(indicador)) {
-            game.removeVisual(indicador)
-        }
+        self.cambiarEstado(new EstadoNeutral(position = self.posicionIndicador()))
     }
 
     method diceLaVerdad()
-    method estaCorrecta() = (self.diceLaVerdad() and estado == "verdad") or (!self.diceLaVerdad() and estado == "falso")
+    method estaCorrecta() = estado.coincideCon(self.diceLaVerdad())
 }
 
-// aca hice una clase abstracta estatua, antes era solo estatuaMentirosa y pense que era mejor hacer dos clases que redefinan el metodo de diceLaVerdad e instanciar solamente verdadera o mentirosa y no romana como era antes (ahora class Estatua)
 class EstatuaVerdadera inherits Estatua {
     override method diceLaVerdad() = true
 }
