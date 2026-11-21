@@ -161,8 +161,7 @@ class Marco inherits ElementoInteractivo {
 
     method estaCorrecto() = self.image() == imagenCorrecta
 }
-object poemaGrande {
-    var property position = game.at(2, 2) 
+object poemaGrande inherits ElementoInteractivo(position = game.at(2, 2)) {
     method image() = "puzzles/poema.png"
 }
 object mesaPoema inherits ElementoInteractivo(position = game.at(1, 1)) {
@@ -178,11 +177,7 @@ object mesaPoema inherits ElementoInteractivo(position = game.at(1, 1)) {
     }
 
     override method abrirMenu() {
-        if (game.hasVisual(poemaGrande)) {
-            game.removeVisual(poemaGrande)
-        } else {
-            game.addVisual(poemaGrande)
-        }
+        game.addVisual(poemaGrande)
     }
 }
 object administradorMarcos {

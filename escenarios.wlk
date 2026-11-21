@@ -44,8 +44,12 @@ object administradorDeSalas {
                 if (player.tiene(disfrazArtista)) player.ponerseDisfraz(disfrazArtista)
             })
             keyboard.e().onPressDo({ 
-                const tocados = game.colliders(player)
+                if (game.hasVisual(poemaGrande)) {
+                    game.removeVisual(poemaGrande)
+                 } else {
+                    const tocados = game.colliders(player)
                 if (!tocados.isEmpty()) { tocados.first().abrirMenu() }
+                }
             })
             keyboard.v().onPressDo({ 
                 const tocados = game.colliders(player)

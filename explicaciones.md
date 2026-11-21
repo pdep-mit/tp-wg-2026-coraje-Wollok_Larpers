@@ -20,6 +20,8 @@
 
 **Visuales:** se le manda el mensaje `chocarConJugador()` a cualquier cosa con la que choque el jugador (puertas, llave, activadores de disfraz, estatuas, marcos, etc.) y cada una hace lo suyo.
 
+**Estados de las estatuas:** `EstadoNeutral` `EstadoVerdad` `EstadoFalso` entienden `coincideCon(diceLaVerdad)`, cada estado sabe evaluar si coincide con la estatua y como dibujarse en pantalla.
+
 **Pantallas finales:** `pantallaVictoria` y `pantallaDerrota` entienden el mismo mensaje `mostrar()`. Quien termina el juego le pide a la pantalla que corresponda que se muestre, sin preguntar con un `if` si se ganó o se perdió.
 
 ## Herencia
@@ -30,7 +32,9 @@
 
 **`ElementoInteractivo`:** es la clase base de estatuas, marcos, mesa y menú. Define como no-ops los mensajes `chocarConJugador()`, `abrirMenu()`, `marcarVerdad()` y `marcarFalso()`, para que el teclado pueda mandárselos a cualquier elemento.
 
-**`EstatuaRomana` / `EstatuaVerdadera`:** la segunda hereda de la primera y solo redefine `diceLaVerdad()`.
+**`Estatua`:** clase abstracta que junta el comportamiento de las estatuas (posición, diálogo, manejo de menú y cambio de estado), de ella heredan `EstatuaVerdadera` y `EstatuaMentirosa`. 
+
+**`EstadoEstatua`:** hereda de `ElementoInteractivo` y suma las interacciones visuales (`mostrar()` y `ocultar()`). De ella heredan `EstadoNeutral` `EstadoVerdad` y `EstadoFalso`.
 
 **`PantallaFinal`:** clase abstracta de la que heredan las pantallas finales.
 
