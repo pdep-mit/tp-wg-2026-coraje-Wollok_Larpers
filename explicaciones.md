@@ -4,11 +4,12 @@
 
 ## Índice
 
-- [Polimorfismo](##polimorfismo)
-- [Herencia](##herencia)
-- [Composición](##composición)
-- [Encapsulamiento y delegación](##encapsulamientoydelegacion)
-- [Colecciones](##colecciones)
+- [1. Polimorfismo](#1-polimorfismo)
+- [2. Herencia](#2-herencia)
+- [3. Composición](#3-composición)
+- [4. Encapsulamiento y Delegación](#4-encapsulamiento-y-delegación)
+- [5. Colecciones](#5-colecciones)
+
 ---
 
 ## 1. Polimorfismo
