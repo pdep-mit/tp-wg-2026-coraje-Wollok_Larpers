@@ -4,9 +4,11 @@
 
 ## Índice
 
-- [Polimorfismo](#polimorfismo)
-- [Herencia](#herencia)
-- [Template Method](#template-method)
+- [Polimorfismo](##polimorfismo)
+- [Herencia](##herencia)
+- [Composición](##composición)
+- [Encapsulamiento y delegación](##encapsulamientoydelegacion)
+- [Colecciones](##colecciones)
 ---
 
 ## 1. Polimorfismo
