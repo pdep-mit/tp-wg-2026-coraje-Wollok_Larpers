@@ -4,15 +4,13 @@
 
 ## Índice
 
-- [1. Polimorfismo](#1-polimorfismo)
-- [2. Herencia](#2-herencia)
-- [3. Composición](#3-composición)
-- [4. Encapsulamiento y Delegación](#4-encapsulamiento-y-delegación)
-- [5. Colecciones](#5-colecciones)
+- [Polimorfismo](#1-polimorfismo)
+- [Herencia](#2-herencia)
+- [Composición](#3-composición)
+- [Encapsulamiento y Delegación](#4-encapsulamiento-y-delegación)
+- [Colecciones](#5-colecciones)
 
----
-
-## 1. Polimorfismo
+## Polimorfismo
 
 Distintos objetos comparten una misma interfaz (entienden los mismos mensajes) para que quien los usa pueda tratarlos de manera indistinta, sin preguntar con un `if` de cuál se trata.
 
@@ -31,7 +29,7 @@ Los objetos `disfrazPolicia`, `disfrazAnubis` y `disfrazArtista` no heredan de u
 
 ---
 
-## 2. Herencia
+## Herencia
 
 Permite compartir comportamiento común en una superclase y especializar solo lo que cambia en las subclases, ya sea extendiendo la lógica original con `super()` o completando pasos de un algoritmo base
 
@@ -48,7 +46,7 @@ La clase base `Puerta` define los atributos `position`, `proximaSala`, `posicion
 
 ---
 
-## 3. Composición
+## Composición
 
 Un objeto delega parte de su comportamiento en otro objeto que mantiene como atributo, permitiendo cambiar ese comportamiento dinámicamente en tiempo de ejecución.
 
@@ -66,7 +64,7 @@ Cada instancia de `Estatua` tiene un atributo `var estado`, que al construirse (
 
 ---
 
-## 4. Encapsulamiento y Delegación
+## Encapsulamiento y Delegación
 
 El encapsulamiento oculta el estado interno de un objeto exponiendo solo los mensajes necesarios; la delegación consiste en pedirle a ese objeto que haga la tarea en lugar de sacar sus datos para operarlos desde afuera.
 
@@ -84,7 +82,7 @@ El objeto `reloj` encapsula `minutosTotales` (`360`) y `minutosRestantes` (sin s
 
 ---
 
-## 5. Colecciones
+## Colecciones
 
 Agrupación de objetos en listas manipuladas de forma declarativa mediante bloques (*closures*).
 
