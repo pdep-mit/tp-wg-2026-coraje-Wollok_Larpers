@@ -1,5 +1,6 @@
+import wollok.game.*
 import reloj.*
-import pantallasFinales.*
+import escenarios.*
 
 describe "Tests del reloj" {
 
@@ -34,11 +35,16 @@ describe "Tests del reloj" {
 
 describe "Tests de las pantallas finales" {
 
-  test "La pantalla de derrota arma su texto con su titulo y su detalle" {
-    assert.equals("GAME OVER - Son las 18:00 y cerró el museo", pantallaDerrota.text())
+  test "Al mostrarse la pantalla de derrota termina el juego y muestra el cartel de reinicio" {
+    pantallaDerrota.mostrar()
+    assert.that(administradorDeSalas.juegoTerminado())
+    assert.that(game.hasVisual(pantallaDerrota))
+    assert.that(game.hasVisual(cartelReinicio))
   }
 
-  /*test "La pantalla de victoria arma su texto con su titulo y su detalle" {
-    assert.equals("¡ESCAPASTE DEL MUSEO! - Saliste antes de que cierren", pantallaVictoria.text())
-  }*/
+  test "Al llegar a la habitacion final termina el juego y muestra el cartel de reinicio" {
+    habitacionFinal.dibujar()
+    assert.that(administradorDeSalas.juegoTerminado())
+    assert.that(game.hasVisual(cartelReinicio))
+  }
 }

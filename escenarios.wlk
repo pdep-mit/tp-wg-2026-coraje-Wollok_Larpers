@@ -180,7 +180,7 @@ object habitacionTres {
         const puertaFinal = new Puerta(
             position = game.at(5, 8), 
             proximaSala = habitacionFinal, 
-            posicionJugador = game.at(5, 3),
+            posicionJugador = game.at(4, 3),
             condicionDePaso = { => administradorEstatuas.estanTodasResueltas() and player.tiene(llave) },
             generadorMensaje = { => 
                 if (!administradorEstatuas.estanTodasResueltas()) {
@@ -223,7 +223,6 @@ object pantallaDerrota {
 }
 
 object cartelReinicio {
-    method position() = game.at(2, 2) 
-    method text() = "Presiona la tecla R para reiniciar"
-    method textColor() = "FFFF00FF" 
+    method position() = game.at(0, 0) 
+    method image() = "cartel_reinicio.png"
 }
