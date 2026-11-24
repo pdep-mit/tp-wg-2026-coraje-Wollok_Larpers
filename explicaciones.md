@@ -23,6 +23,8 @@ Los objetos `disfrazPolicia`, `disfrazAnubis` y `disfrazArtista` no heredan de u
 * **Cómo lo resuelve cada uno:** `disfrazAnubis` y `disfrazArtista` llevan su propio contador `desgaste`: según ese valor devuelven distintas imágenes de desgaste y, al llegar a `60`, le avisan al jugador con `personaje.romperDisfraz(self)` y resetean su contador a `0`. `disfrazPolicia`, en cambio, implementa `desgastar(personaje) { }` vacío. Esta decisión evita que `player` tenga que preguntar `if (disfraz != disfrazPolicia)` antes de desgastarlo.
 * **Uso polimórfico desde las puertas:** Las condiciones de `puertaAnubis` y `puertaArtista` simplemente envían `player.disfraz().permiteAccesoAnubis()` o `permiteAccesoArtista()`, y cada disfraz responde `true` o `false` según corresponda.
 
+<img width="615" height="444" alt="image" src="https://github.com/user-attachments/assets/ff07d0b9-f681-484e-9d81-d2c2e8e41d15" />
+
 ### Otros ejemplos en el código
 * **Colisiones (`chocarConJugador()`):** `administradorDeSalas` envía `elemento.chocarConJugador()` a cualquier visual con el que choque `player` (`Puerta`, `llave`, `activadorAnubis`, `activadorArtista`, `Estatua`, `Marco`, `mesaPoema`, `cartelPuertas`).
 * **Salas (`escenarios.wlk`):** `salaPrincipal`, `habitacionUno`, `habitacionDos`, `habitacionTres` y `habitacionFinal` entienden todas `dibujar()`.
@@ -39,6 +41,8 @@ La clase base `Puerta` define los atributos `position`, `proximaSala`, `posicion
 
 * **Extensión con `super()` en `PuertaTrampaTeletransportacion`:** Hereda de `Puerta` fijando `proximaSala = salaPrincipal` y `posicionJugador = game.at(4, 6)`. Redefine (`override`) únicamente `cruzar()`: primero muestra el mensaje de trampa (`game.say(player, "¡Puerta trampa! Volvés a la sala principal.")`) y luego llama a `super()` para reutilizar el cambio de sala (`administradorDeSalas.cambiarA(proximaSala, posicionJugador)`) sin duplicar ese código.
 * **Redefinición completa en `PuertaTrampaRestaTiempo`:** Hereda de `Puerta` pero, como al chocarla el jugador no debe cruzar a ninguna sala, redefine directamente `chocarConJugador()` para ejecutar `reloj.restarMinutos(10)` y mostrar el aviso.
+
+<img width="448" height="303" alt="image" src="https://github.com/user-attachments/assets/6566e9c2-7f9c-46d3-8f5e-42b62d0f8775" />
 
 ### Otros ejemplos en el código
 * **`ElementoInteractivo` (`interactuables.wlk`):** Superclase de `Estatua`, `Marco`, `mesaPoema`, `menuFlotante` y `EstadoEstatua` que define versiones vacías de `chocarConJugador()`, `abrirMenu()`, `marcarVerdad()` y `marcarFalso()`.
@@ -58,6 +62,8 @@ Cada instancia de `Estatua` tiene un atributo `var estado`, que al construirse (
 * **Cambio dinámico:** Cuando el jugador presiona `V` o `F`, la estatua ejecuta `marcarVerdad()` o `marcarFalso()`, que llaman a `cambiarEstado(nuevoEstado)`. Ese método oculta el visual del estado anterior (`estado.ocultar()`), reemplaza la referencia `estado` por un `new EstadoVerdad(...)` o `new EstadoFalso(...)` y lo muestra en pantalla (`estado.mostrar()`). Al reiniciar el puzzle, vuelve a `EstadoNeutral`.
 * **Por qué composición y no herencia:** Un objeto no puede cambiar de clase en tiempo de ejecución. Si el estado marcado por el jugador se hubiera modelado con herencia, habría que haber creado subclases rígidas (como `EstatuaVerdaderaMarcadaFalsa`) y destruir/recrear estatuas cada vez que el jugador cambia de opinión. Con composición, la estatua simplemente delega la verificación en su estado actual (`estado.coincideCon(self.diceLaVerdad())`).
 
+<img width="249" height="338" alt="image" src="https://github.com/user-attachments/assets/efcb8aab-40b0-4087-8be8-23f809ed8f3b" />
+
 ### Otros ejemplos en el código
 * **`player` con `disfraz` e `inventario` (`player.wlk`):** `player` cambia su disfraz dinámicamente con `ponerseDisfraz(nuevoDisfraz)` y delega el guardado de ítems en `mochila`.
 * **`Puerta` con bloques (`puertas.wlk`, `escenarios.wlk`):** En lugar de crear subclases para `puertaAnubis`, `puertaArtista` y `puertaFinal`, `Puerta` se compone de los bloques `condicionDePaso` y `generadorMensaje`.
@@ -74,6 +80,8 @@ El objeto `reloj` encapsula `minutosTotales` (`360`) y `minutosRestantes` (sin s
 
 * **Cómo interactúan:** `PuertaTrampaRestaTiempo` envía `reloj.restarMinutos(10)`. Por otro lado, el tick del juego envía `reloj.pasarUnMinuto()`, que internamente llama a `self.restarMinutos(1)` y delega el desgaste en `player.desgastarDisfrazActual()`.
 * **Responsabilidad encapsulada:** `PuertaTrampaRestaTiempo` no sabe cuántos minutos quedan ni cómo se descuenta el tiempo. Es `reloj.restarMinutos(cantidad)` quien actualiza `minutosRestantes = (minutosRestantes - cantidad).max(0)` para evitar negativos, verifica `self.seTerminoElTiempo()` y, si llegó a cero, delega el fin del juego en `pantallaDerrota.mostrar()`.
+
+<img width="204" height="334" alt="image" src="https://github.com/user-attachments/assets/923cbe7e-99f7-4513-bd55-1a90e7a878eb" />
 
 ### Otros ejemplos en el código
 * **`player` y los disfraces (`player.wlk`, `disfraces.wlk`):** `player` delega en `disfraz.desgastar(self)` sin conocer el contador interno `desgaste`.
